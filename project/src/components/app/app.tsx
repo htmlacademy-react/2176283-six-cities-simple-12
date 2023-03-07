@@ -1,7 +1,11 @@
 import WelcomePage from '../../pages/welcome-page/welcome-page';
 
-function App(): JSX.Element {
-  return < WelcomePage />;
+type AppWelcomePageProps = {
+  offerCount: number;
+}
+
+function App({offerCount}: AppWelcomePageProps): JSX.Element {
+  return < WelcomePage offerCount = {offerCount}/>;
 }
 
 export default App;
