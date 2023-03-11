@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import Logo from "../../components/logo/logo";
+
 function ErrorPage(): JSX.Element {
   return (
     <div className="page">
@@ -22,9 +25,7 @@ function ErrorPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Logo/>
             </div>
           </div>
         </div>
@@ -33,7 +34,7 @@ function ErrorPage(): JSX.Element {
       <main className="page__error">
         <div className="page__error-container container">
           <h2>404 Not Found</h2>
-          <a href="main.html">Вернуться на главную</a>
+          <Link to="/">Вернуться на главную</Link>
         </div>
       </main>
     </div>
