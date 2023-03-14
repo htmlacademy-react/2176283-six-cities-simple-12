@@ -1,7 +1,13 @@
+import { Helmet } from 'react-helmet-async';
+
+
 function WelcomeEmptyPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <div style={{display: 'none'}}>
+        <Helmet>
+          <title>six cities simple welcome</title>
+        </Helmet>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z">
