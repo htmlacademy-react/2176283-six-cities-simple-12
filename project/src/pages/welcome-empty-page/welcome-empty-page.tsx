@@ -28,7 +28,7 @@ function WelcomeEmptyPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <a className="header__logo-link header__logo-link--active" href="/">
                 <img className="header__logo" src="img/logo.svg" alt="six cities logo" width="81" height="41"/>
               </a>
             </div>
@@ -41,7 +41,7 @@ function WelcomeEmptyPage(): JSX.Element {
                   </div>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="#todo">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -57,32 +57,32 @@ function WelcomeEmptyPage(): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" href="#todo">
                   <span>Paris</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" href="#todo">
                   <span>Cologne</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" href="#todo">
                   <span>Brussels</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item">
+                <a className="locations__item-link tabs__item" href="#todo">
                   <span>Amsterdam</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" href="#todo">
                   <span>Hamburg</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#">
+                <a className="locations__item-link tabs__item tabs__item--active" href="#todo">
                   <span>Dusseldorf</span>
                 </a>
               </li>

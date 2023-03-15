@@ -22,7 +22,7 @@ function App({offerCount}: AppWelcomePageProps): JSX.Element {
             element = {<WelcomePage offerCount={offerCount}/>}
           />
           <Route
-            path={AppRoute.RootEmpty}
+            path={AppRoute.Root}
             element = {<WelcomeEmptyPage/>}
           />
           <Route
@@ -34,7 +34,7 @@ function App({offerCount}: AppWelcomePageProps): JSX.Element {
             element = {<OfferUserLoggedPage/>}
           />
           <Route
-            path={AppRoute.OfferNot}
+            path={AppRoute.Offer}
             element = {<OfferUserNotLoggedPage/>}
           />
           <Route
