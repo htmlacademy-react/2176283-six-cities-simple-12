@@ -1,7 +1,14 @@
+import { Helmet } from 'react-helmet-async';
+
+import Logo from '../../components/logo/logo';
+
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <div style={{display: 'none'}}>
+        <Helmet>
+          <title>six cities simple login</title>
+        </Helmet>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z">
@@ -22,9 +29,7 @@ function LoginPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Logo/>
             </div>
           </div>
         </div>
@@ -48,7 +53,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <a className="locations__item-link" href="#todo">
                 <span>Amsterdam</span>
               </a>
             </div>
