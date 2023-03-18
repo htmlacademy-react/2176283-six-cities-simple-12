@@ -1,8 +1,8 @@
-import { Offer } from '../types/offer';
+import { Offers } from '../types/offer';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const offers: Offer[] = [
+export const offers: Offers = [
   {
     id: 3242,
     photos: [{

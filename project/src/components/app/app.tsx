@@ -7,12 +7,14 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferUserLoggedPage from '../../pages/offer-user-logged-page/offer-user-logged-page';
 import OfferUserNotLoggedPage from '../../pages/offer-user-not-logged-page/offer-usser-not-logged-page';
 import ErrorPage from '../../pages/error-page/error-page';
+import { Offers } from '../../types/offer';
 
 type AppWelcomePageProps = {
   offerCount: number;
+  offers: Offers;
 }
 
-function App({offerCount}: AppWelcomePageProps): JSX.Element {
+function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>

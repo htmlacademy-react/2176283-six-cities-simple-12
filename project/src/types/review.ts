@@ -6,3 +6,4 @@ date: string; //Дата отзыва в формате: Месяц Год. На
 text: string; //Текст отзыва.
 }
 
+export type Reviews = Review[];

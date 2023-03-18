@@ -1,8 +1,8 @@
-import { Review } from '../types/review';
+import { Reviews } from '../types/review';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const reviews: Review[] = [{
+export const reviews: Reviews = [{
   avatar: `${AVATAR_URL}?rnd=${Math.random()}`,
   name: 'John',
   estimation: 4,
