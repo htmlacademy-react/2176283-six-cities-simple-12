@@ -1,40 +1,43 @@
 import { Offers } from '../types/offer';
+import { reviews } from './reviews';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const offers: Offers = [
+export const offers: Offers = //[
   {
     id: 3242,
-    photos: [{
-      src:'fkjnl',
-      alt:'foto'
-    }, {
-      src:'dlknsdlvnd',
-      alt: 'ffddd'
-    }], //Фотографии. Выводится до 6-ти изображений.
-    title: 'kdjvnd', //Заголовок. Краткое описание предложения, например: «Beautiful & luxurious studio at great location».
-    description: 'lkvdsomdspmdspc', //Подробное описание.
-    premium: false,
-    type: 'apartment', //Тип жилья. Одно из значений: apartment (Apartment), room (Private Room), house (House), hotel (Hotel).
-    rating: 4.3, //Рейтинг. Оценка предложения отображается в виде закрашенных звезд и среднего балла (например, 4.8). Максимальное количество звёзд — 5.
-    rooms: 3, //Количество спален. Например, 3 Bedrooms.
-    guests: 5, //Максимальное количество гостей. Например, Max 4 adults.
-    price: 1200, //Стоимость аренды за ночь. Сумма всегда отображается в евро.
-    options:['Wi-Fi', 'TV', 'Parking'], //Список бытовых предметов в квартире (Wifi, Heating, Kitchen, Cable TV и т. д.);
+    images: [
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/room.jpg',
+      'img/apartment-small-04.jpg',
+      'img/apartment-02.jpg',
+    ],
+    title: 'Title............title.............title',
+    description: 'Описываются самые лучшие стороны этого жилья . . . . . . . много текста . . . . . . . . . . . . . . . . много текста . . . . . . ',
+    premium: true,
+    type: 'Private Room',
+    rating: 4.3,
+    bedrooms: 5,
+    maxAdults: 5,
+    price: 1200,
+    goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
-      avatar: {
-        src: `${AVATAR_URL}?rnd=${Math.random()}`,
-        alt: 'avatar'},
+      id: 123,
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       name: 'Avrora',
-      mark: false
-    }, //Информация о хозяине: аватарка, имя, отметка pro (звёздочка возле аватарки) и подпись Pro под именем хозяина.
-  }, {
+      isPro: true
+    },
+    reviews: reviews,
+  }/*, {
     id: 567,
     photos: [{
-      src:'khrkuhgrhf',
+      src:'img/apartment-01.jpg',
       alt:'foto'
     }, {
-      src:'dlknsdlvnd',
+      src:'img/apartment-small-03.jpg',
       alt: 'ffddd'
     }],
     title: 'kdjvnd',
@@ -55,4 +58,4 @@ export const offers: Offers = [
       mark: true
     },
   }
-];
+];*/
