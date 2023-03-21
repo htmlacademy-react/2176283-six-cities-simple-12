@@ -4,7 +4,7 @@ import App from './components/app/app';
 import { offers } from './mocks/offers';
 
 const Setting = {
-  OfferCount: 5,
+  OfferCount: 6,
 } as const;
 
 const root = ReactDOM.createRoot(

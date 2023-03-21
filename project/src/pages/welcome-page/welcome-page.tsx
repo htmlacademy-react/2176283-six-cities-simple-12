@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import OfferCard from '../../components/card';
-import { Offer } from '../../types/offer';
+//import OfferCard from '../../components/card';
+import OffersList from '../offers-list/offers-list';
+import { Offers } from '../../types/offer';
 
 type WelcomePageProps = {
   offerCount: number;
-  offer: Offer;
+  offers: Offers;
 }
 
-function WelcomePage({offerCount, offer}: WelcomePageProps): JSX.Element {
+function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
   return (
     <body className="page page--gray page--main">
       <div style={{display: 'none'}}>
@@ -115,11 +116,9 @@ function WelcomePage({offerCount, offer}: WelcomePageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {
-                  Array(offerCount).fill(<OfferCard offer={offer}/>)
-                }
-              </div>
+              {
+                <OffersList offers={offers} offerCount={offerCount}/>
+              }
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

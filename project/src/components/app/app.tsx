@@ -15,7 +15,6 @@ type AppWelcomePageProps = {
 }
 
 function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
-  const [firstoffer] = offers;
 
   return (
     <HelmetProvider>
@@ -23,7 +22,7 @@ function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element = {<WelcomePage offerCount={offerCount} offer={firstoffer}/>}
+            element = {<WelcomePage offerCount={offerCount} offers = {offers}/>}
           />
           <Route
             path={AppRoute.Root}
