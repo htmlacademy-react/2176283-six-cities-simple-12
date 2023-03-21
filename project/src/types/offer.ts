@@ -1,9 +1,10 @@
 import { Host } from './host';
 import { Reviews } from './review';
 
-export type Offers = {
+export type Offer = {
   id: number; //уникальный идентификатор
   images: string[]; //Фотографии. Выводится до 6-ти изображений.
+  previewImage: string;
   title: string; //Заголовок. Краткое описание предложения, например: «Beautiful & luxurious studio at great location».
   description: string; //Подробное описание.
   premium: boolean;
@@ -14,8 +15,7 @@ export type Offers = {
   price: number; //Стоимость аренды за ночь. Сумма всегда отображается в евро.
   goods: string[]; //Список бытовых предметов в квартире (Wifi, Heating, Kitchen, Cable TV и т. д.);
   host: Host; //Информация о хозяине: аватарка, имя, отметка pro (звёздочка возле аватарки) и подпись Pro под именем хозяина.
-  //Отзывы пользователей. В заголовке блока отображается общее количество отзывов. Например: Reviews 12.
-  reviews:Reviews;
+  reviews:Reviews; //Отзывы пользователей. В заголовке блока отображается общее количество отзывов. Например: Reviews 12.
 }
 
-//export type Offers = Offer[];
+export type Offers = Offer[];

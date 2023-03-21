@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import {HelmetProvider} from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import WelcomePage from '../../pages/welcome-page/welcome-page';
 import WelcomeEmptyPage from '../../pages/welcome-empty-page/welcome-empty-page';
@@ -15,13 +15,15 @@ type AppWelcomePageProps = {
 }
 
 function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
+  const [firstoffer] = offers;
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element = {<WelcomePage offerCount={offerCount}/>}
+            element = {<WelcomePage offerCount={offerCount} offer={firstoffer}/>}
           />
           <Route
             path={AppRoute.Root}
@@ -33,7 +35,7 @@ function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferUserLoggedPage offers={offers}/>}
+            element = {<OfferUserLoggedPage offers={offers[0]}/>}
           />
           <Route
             path={AppRoute.Offer}

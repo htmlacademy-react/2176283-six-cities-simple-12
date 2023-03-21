@@ -3,13 +3,13 @@ import Logo from '../../components/logo/logo';
 import { Offers } from '../../types/offer';
 
 type OfferUserLoggedPageProps = {
-  offers: Offers;
+  offers: Offers[0];
 }
 
 function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
   const {offers} = props;
   const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = offers;
-  const stars = (qua: number) => `${Math.floor(qua * 2) * 10}%` ;
+  const stars = (item: number) => `${Math.floor(item * 2) * 10}%`;
 
   const premiumSticker = () => {
     if (premium === true) {
@@ -47,7 +47,7 @@ function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
     if (images.length) {
       const template = images.map((image, id) => (
         <div key={`${id}-${image}`} className="property__image-wrapper">
-          <img className="property__image" src={image} alt="Photo studio"/>
+          <img className="property__image" src={image} alt="studio"/>
         </div>
       ));
       return template.slice(0, 6);

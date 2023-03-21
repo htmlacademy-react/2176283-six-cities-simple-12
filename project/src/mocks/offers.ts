@@ -3,7 +3,7 @@ import { reviews } from './reviews';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const offers: Offers = //[
+export const offers: Offers = [
   {
     id: 3242,
     images: [
@@ -15,6 +15,7 @@ export const offers: Offers = //[
       'img/apartment-small-04.jpg',
       'img/apartment-02.jpg',
     ],
+    previewImage: 'img/apartment-02.jpg',
     title: 'Title............title.............title',
     description: 'Описываются самые лучшие стороны этого жилья . . . . . . . много текста . . . . . . . . . . . . . . . . много текста . . . . . . ',
     premium: true,
@@ -31,31 +32,28 @@ export const offers: Offers = //[
       isPro: true
     },
     reviews: reviews,
-  }/*, {
+  }, {
     id: 567,
-    photos: [{
-      src:'img/apartment-01.jpg',
-      alt:'foto'
-    }, {
-      src:'img/apartment-small-03.jpg',
-      alt: 'ffddd'
-    }],
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-small-03.jpg',
+    ],
+    previewImage: 'img/apartment-01.jpg',
     title: 'kdjvnd',
     description: 'lkvdsomdspmdspc',
     premium: false,
-    type: 'apartment',
+    type: 'Apartment',
     rating: 4.3,
-    rooms: 3,
-    guests: 5,
+    bedrooms: 3,
+    maxAdults: 5,
     price: 1200,
-    options:['123', '345', '567'],
+    goods:['123', '345', '567'],
     host:{
-      avatar: {
-        src: `${AVATAR_URL}?rnd=${Math.random()}`,
-        alt: 'avatar'
-      },
+      id: 345,
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       name: 'Richi',
-      mark: true
+      isPro: true
     },
+    reviews: reviews,
   }
-];*/
+];
