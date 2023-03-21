@@ -1,4 +1,5 @@
 import { Offer } from '../types/offer';
+import {useState} from 'react';
 
 type OfferUserLoggedPageProps = {
   offer: Offer;
@@ -7,6 +8,12 @@ type OfferUserLoggedPageProps = {
 function OfferCard(props: OfferUserLoggedPageProps): JSX.Element {
   const {offer} = props;
   const {price, type, rating, title, previewImage, premium} = offer;
+
+  const [ , setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
 
   const premiumSticker = () => {
     if (premium === true) {
@@ -20,11 +27,15 @@ function OfferCard(props: OfferUserLoggedPageProps): JSX.Element {
       return '';
     }
   };
+
   const star = () => `${Math.floor(rating * 2) * 10}%`;
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card"
+      onMouseOver={handleMouseOver}
+    >
       {premiumSticker()}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="cities__image-wrapper place-card__image-wrapper" >
         <a href="#todo">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
         </a>
