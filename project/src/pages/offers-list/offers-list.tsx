@@ -1,21 +1,27 @@
 import { Offers } from '../../types/offer';
-import OfferCard from '../../components/card';
+import OfferCard from '../../components/card/card';
+import { useState } from 'react';
 
 type OffersListProps = {
   offerCount: number;
   offers: Offers;
 }
 
-function OffersList(props: OffersListProps): JSX.Element {
-  const {offers} = props;
-  const {offerCount} = props;
-  const template = offers.map((offer) => (<OfferCard key={offer.id} offer={offer}/>));
+function OffersList({ offerCount, offers }: OffersListProps): JSX.Element {
+  const [ , setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {
-        template.slice(0,offerCount)
-      }
+
+      {offers.slice(0,offerCount).map((offer) => (
+        <article key={offer.id} className="cities__card place-card" onMouseOver={handleMouseOver}>
+          <OfferCard key={offer.id} offer={offer}/>
+        </article>))}
+
     </div>);
 }
 

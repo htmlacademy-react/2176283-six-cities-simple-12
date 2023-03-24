@@ -1,99 +1,20 @@
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { premiumSticker, statusPro, star, collage, optionsList, reviewsList, stars } from '../../components/utils/offer-util';
 import { Offers } from '../../types/offer';
 
 type OfferUserLoggedPageProps = {
-  offers: Offers[0];
+  offers: Offers;
 }
 
-function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
-  const {offers} = props;
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = offers;
-  const stars = (item: number) => `${Math.floor(item * 2) * 10}%`;
+function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
+  const param = useParams();
+  const userId = Number(param.id);
 
-  const premiumSticker = () => {
-    if (premium === true) {
-      return (
-        <div className="property__mark">
-          <span>Premium</span>
-        </div>
-      );
-    }
-    else {
-      return '';
-    }
-  };
+  const offerUser = offers.find((offer) => offer.id === userId);
 
-  const statusPro = () => {
-    if (host.isPro === true) {
-      return (
-        <span className="property__user-status">
-          Pro
-        </span>
-      );
-    } else {
-      return '';
-    }
-  };
-
-  const star = () => {
-    if (host.isPro === true) {
-      return ('--pro');
-    }
-    else { return '';}
-  };
-
-  const collage = () => {
-    if (images.length) {
-      const template = images.map((image, id) => (
-        <div key={`${id}-${image}`} className="property__image-wrapper">
-          <img className="property__image" src={image} alt="studio"/>
-        </div>
-      ));
-      return template.slice(0, 6);
-    }
-  };
-
-  const optionsList = () => {
-    if (goods.length) {
-      const template = goods.map((good, id) => (
-        <li key={`${id}-${good}`} className="property__inside-item">
-          {good}
-        </li>
-      ));
-      return template;
-    }
-  };
-
-  const reviewsList = () => {
-    if (reviews.length) {
-      const template = reviews.map((review, id) => (
-        <li key={`${id}-${review.avatar}`}className="reviews__item">
-          <div className="reviews__user user">
-            <div className="reviews__avatar-wrapper user__avatar-wrapper">
-              <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
-            </div>
-            <span className="reviews__user-name">
-              {review.name}
-            </span>
-          </div>
-          <div className="reviews__info">
-            <div className="reviews__rating rating">
-              <div className="reviews__stars rating__stars">
-                <span style={{width: stars(review.estimation)}}></span>
-                <span className="visually-hidden">{review.estimation}</span>
-              </div>
-            </div>
-            <p className="reviews__text">
-              {review.text}
-            </p>
-            <time className="reviews__time" dateTime={review.date}>April 2019</time>
-          </div>
-        </li>
-      ));
-      return template;
-    }
-  };
+  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = offers[0];
 
   return (
     <div className="page">
@@ -146,12 +67,12 @@ function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {collage()}
+              {collage(images)}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {premiumSticker()}
+              {premiumSticker(premium)}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -182,19 +103,19 @@ function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {optionsList()}
+                  {optionsList(goods)}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper property__avatar-wrapper${star()} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper property__avatar-wrapper${star(host)} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {statusPro()}
+                  {statusPro(host)}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -205,7 +126,7 @@ function OfferUserLoggedPage(props: OfferUserLoggedPageProps): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ul className="reviews__list">
-                  {reviewsList()}
+                  {reviewsList(reviews)}
                 </ul>
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>

@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-//import OfferCard from '../../components/card';
 import OffersList from '../offers-list/offers-list';
 import { Offers } from '../../types/offer';
 
@@ -116,9 +115,9 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              {
-                <OffersList offers={offers} offerCount={offerCount}/>
-              }
+
+              <OffersList offers={offers} offerCount={offerCount}/>
+
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
