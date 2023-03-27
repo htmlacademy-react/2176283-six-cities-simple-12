@@ -7,12 +7,12 @@ function CommentSubmissionForm(): JSX.Element {
     review: '',
   });
 
-  const fieldChangeHandle = (evt: { target: { name: string; value: string } }) => {
+  const fieldChangeHandle = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
-  const submitButtonOnClick = (evt: { preventDefault: () => void }) => {
+  const submitButtonOnClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
   };
 

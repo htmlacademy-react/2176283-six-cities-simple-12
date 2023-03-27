@@ -8,19 +8,17 @@ type OffersListProps = {
 }
 
 function OffersList({ offerCount, offers }: OffersListProps): JSX.Element {
-  const [ , setIsHovering] = useState(false);
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
+  const [ activeCard , setActiveCard ] = useState <number | null>(null);
+  // eslint-disable-next-line no-console
+  console.log(activeCard);
 
   return (
     <div className="cities__places-list places__list tabs__content">
 
       {offers.slice(0,offerCount).map((offer) => (
-        <article key={offer.id} className="cities__card place-card" onMouseOver={handleMouseOver}>
-          <OfferCard key={offer.id} offer={offer}/>
-        </article>))}
+        <OfferCard key={offer.id} offer={offer} onMouseOver={() => setActiveCard(offer.id)} onMouseOut={() => setActiveCard(null)}/>
+      ))}
 
     </div>);
 }

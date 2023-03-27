@@ -1,21 +1,29 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 import Logo from '../../components/logo/logo';
-import { premiumSticker, statusPro, star, collage, optionsList, reviewsList, stars } from '../../components/utils/offer-util';
+import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
+import { starsRating } from '../../hooks/stars-rating/stars-rating';
+import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
+import { StatusPro } from '../../components/status-pro/status-pro';
 import { Offers } from '../../types/offer';
+import { AppRoute } from '../../const';
 
 type OfferUserLoggedPageProps = {
   offers: Offers;
 }
 
 function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
-  const param = useParams();
-  const userId = Number(param.id);
+  const { id } = useParams();
+  const userId = Number(id);
 
-  const offerFromOffers = offers.find((offer) => offer.id === userId);
-  const offer = Object(offerFromOffers);
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = offer;
+  const currentOffer = offers.find((offer) => offer.id === userId);
+
+  if(!currentOffer) {
+    return <Navigate to={AppRoute.NoFound}/>;
+  }
+
+  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = currentOffer;
 
   return (
     <div className="page">
@@ -68,12 +76,21 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {collage(images)}
+
+              {images.map((image) => {
+                const keyValue = `${image}`;
+                return (
+                  <div key={keyValue} className="property__image-wrapper">
+                    <img className="property__image" src={image} alt="studio"/>
+                  </div>
+                );
+              })}
+
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {premiumSticker(premium)}
+              <PremiumSticker premium={premium}/>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -81,7 +98,7 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: stars(rating)}}></span>
+                  <span style={{width: starsRating(rating)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -104,19 +121,28 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {optionsList(goods)}
+
+                  {goods.map((good) => {
+                    const keyValue = `${good}`;
+                    return (
+                      <li key={keyValue} className="property__inside-item">
+                        {good}
+                      </li>
+                    );
+                  })}
+
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper property__avatar-wrapper${star(host)} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper property__avatar-wrapper${stickerPro(host)} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {statusPro(host)}
+                  {<StatusPro host={host}/>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -127,7 +153,35 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ul className="reviews__list">
-                  {reviewsList(reviews)}
+
+                  {reviews.map((review) => {
+                    const keyValue = `${review.avatar}`;
+                    return (
+                      <li key={keyValue}className="reviews__item">
+                        <div className="reviews__user user">
+                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                            <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
+                          </div>
+                          <span className="reviews__user-name">
+                            {review.name}
+                          </span>
+                        </div>
+                        <div className="reviews__info">
+                          <div className="reviews__rating rating">
+                            <div className="reviews__stars rating__stars">
+                              <span style={{width: starsRating(review.estimation)}}></span>
+                              <span className="visually-hidden">{review.estimation}</span>
+                            </div>
+                          </div>
+                          <p className="reviews__text">
+                            {review.text}
+                          </p>
+                          <time className="reviews__time" dateTime={review.date}>April 2019</time>
+                        </div>
+                      </li>
+                    );
+                  })}
+
                 </ul>
                 <CommentSubmissionForm/>
               </section>

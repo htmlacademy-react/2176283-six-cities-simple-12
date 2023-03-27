@@ -31,7 +31,7 @@ function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
             element = {<OfferUserLoggedPage offers={offers}/>}
           />
           <Route
-            path="*"
+            path={AppRoute.NoFound}
             element = {<ErrorPage/>}
           />
         </Routes>
