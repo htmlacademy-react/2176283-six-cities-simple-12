@@ -5,6 +5,14 @@ const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 export const offers: Offers = [
   {
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 3242,
     images: [
       'img/apartment-02.jpg',
@@ -33,6 +41,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 5367,
     images: [
       'img/apartment-01.jpg',
@@ -56,6 +72,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 332342,
     images: [
       'img/apartment-02.jpg',
@@ -84,6 +108,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 3243892,
     images: [
       'img/apartment-02.jpg',
@@ -112,6 +144,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.3709553943508,
+        longitude: 4.84209666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 5689807,
     images: [
       'img/apartment-01.jpg',
@@ -135,6 +175,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.4009553943508,
+        longitude: 4.85209666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 5670908,
     images: [
       'img/apartment-01.jpg',
@@ -158,6 +206,14 @@ export const offers: Offers = [
     },
     reviews: reviews,
   }, {
+    city: {
+      location: {
+        latitude: 52.3009553943508,
+        longitude: 4.909309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
     id: 566787,
     images: [
       'img/apartment-01.jpg',
