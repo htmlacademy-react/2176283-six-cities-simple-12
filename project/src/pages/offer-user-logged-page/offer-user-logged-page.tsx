@@ -77,14 +77,11 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
 
-              {images.map((image) => {
-                const keyValue = `${image}`;
-                return (
-                  <div key={keyValue} className="property__image-wrapper">
-                    <img className="property__image" src={image} alt="studio"/>
-                  </div>
-                );
-              })}
+              {images.map((image) => (
+                <div key={`${image}`} className="property__image-wrapper">
+                  <img className="property__image" src={image} alt="studio"/>
+                </div>
+              ))}
 
             </div>
           </div>
@@ -122,14 +119,11 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
 
-                  {goods.map((good) => {
-                    const keyValue = `${good}`;
-                    return (
-                      <li key={keyValue} className="property__inside-item">
-                        {good}
-                      </li>
-                    );
-                  })}
+                  {goods.map((good) => (
+                    <li key={`${good}`} className="property__inside-item">
+                      {good}
+                    </li>
+                  ))}
 
                 </ul>
               </div>
@@ -154,33 +148,30 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ul className="reviews__list">
 
-                  {reviews.map((review) => {
-                    const keyValue = `${review.avatar}`;
-                    return (
-                      <li key={keyValue}className="reviews__item">
-                        <div className="reviews__user user">
-                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
-                          </div>
-                          <span className="reviews__user-name">
-                            {review.name}
-                          </span>
+                  {reviews.map((review, index) => (
+                    <li key={`${index + 1}-${review.avatar}`}className="reviews__item">
+                      <div className="reviews__user user">
+                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                          <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
                         </div>
-                        <div className="reviews__info">
-                          <div className="reviews__rating rating">
-                            <div className="reviews__stars rating__stars">
-                              <span style={{width: starsRating(review.estimation)}}></span>
-                              <span className="visually-hidden">{review.estimation}</span>
-                            </div>
+                        <span className="reviews__user-name">
+                          {review.name}
+                        </span>
+                      </div>
+                      <div className="reviews__info">
+                        <div className="reviews__rating rating">
+                          <div className="reviews__stars rating__stars">
+                            <span style={{width: starsRating(review.estimation)}}></span>
+                            <span className="visually-hidden">{review.estimation}</span>
                           </div>
-                          <p className="reviews__text">
-                            {review.text}
-                          </p>
-                          <time className="reviews__time" dateTime={review.date}>April 2019</time>
                         </div>
-                      </li>
-                    );
-                  })}
+                        <p className="reviews__text">
+                          {review.text}
+                        </p>
+                        <time className="reviews__time" dateTime={review.date}>April 2019</time>
+                      </div>
+                    </li>
+                  ))}
 
                 </ul>
                 <CommentSubmissionForm/>
