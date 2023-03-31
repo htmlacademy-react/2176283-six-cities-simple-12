@@ -1,6 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../offers-list/offers-list';
 import { Offers } from '../../types/offer';
+import LocationsList from '../../components/locations-list/locations-list';
+import { CITIES } from '../../const';
+import Map from '../../components/map/map';
+import { CITY } from '../../mocks/city';
 
 type WelcomePageProps = {
   offerCount: number;
@@ -61,38 +65,9 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#todo">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+
+            <LocationsList locations={CITIES}/>
+
           </section>
         </div>
         <div className="cities">
@@ -120,7 +95,11 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+
+                <Map city = {CITY}/>
+
+              </section>
             </div>
           </div>
         </div>
