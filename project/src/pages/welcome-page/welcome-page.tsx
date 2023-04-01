@@ -5,6 +5,7 @@ import LocationsList from '../../components/locations-list/locations-list';
 import { CITIES } from '../../const';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
+import { useState } from 'react';
 
 type WelcomePageProps = {
   offerCount: number;
@@ -12,6 +13,21 @@ type WelcomePageProps = {
 }
 
 function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
+
+  const [selectedOffer, setSelectedOffer] = useState({});
+
+  const onListOfferHover = (listOfferId: number) => {
+    const currentOffer = offers.find((offer) =>
+      offer.id === listOfferId,
+    );
+    if(currentOffer) {
+      return setSelectedOffer(currentOffer);
+    }
+    else {
+      return setSelectedOffer('');
+    }
+  };
+
   return (
     <body className="page page--gray page--main">
       <div style={{display: 'none'}}>
@@ -91,13 +107,13 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
                 </ul>
               </form>
 
-              <OffersList offers={offers} offerCount={offerCount}/>
+              <OffersList offers={offers} offerCount={offerCount} onListOfferHover={onListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
 
-                <Map city = {CITY} offers={offers}/>
+                <Map city = {CITY} offers={offers} selectedOffer={selectedOffer}/>
 
               </section>
             </div>

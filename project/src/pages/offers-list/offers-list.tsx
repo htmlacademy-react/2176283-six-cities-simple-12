@@ -5,13 +5,14 @@ import { useState } from 'react';
 type OffersListProps = {
   offerCount: number;
   offers: Offers;
+  onListOfferHover: Function;
 }
 
-function OffersList({ offerCount, offers }: OffersListProps): JSX.Element {
+function OffersList({ offerCount, offers, onListOfferHover }: OffersListProps): JSX.Element {
 
   const [ activeCard , setActiveCard ] = useState <number | null>(null);
-  // eslint-disable-next-line no-console
-  console.log(activeCard);
+
+  onListOfferHover(activeCard);
 
   return (
     <div className="cities__places-list places__list tabs__content">
