@@ -2,7 +2,7 @@ import { Locations } from '../../types/location';
 
 type LocationsListProps = {
   locations: Locations;
-}
+  }
 
 function LocationsList({locations}: LocationsListProps): JSX.Element {
   return (
