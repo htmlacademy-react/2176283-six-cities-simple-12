@@ -16,7 +16,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState({});
 
-  const onListOfferHover = (listOfferId: number) => {
+  const onListOfferHover: (listOfferId: number | null) => void = (listOfferId: number | null) => {
     const currentOffer = offers.find((offer) =>
       offer.id === listOfferId,
     );
