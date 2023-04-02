@@ -16,7 +16,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState({});
 
-  const onListOfferHover: (listOfferId: number | null) => void = (listOfferId: number | null) => {
+  const handleListOfferHover: (listOfferId: number | null) => void = (listOfferId: number | null) => {
     const currentOffer = offers.find((offer) =>
       offer.id === listOfferId,
     );
@@ -107,7 +107,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
                 </ul>
               </form>
 
-              <OffersList offers={offers} offerCount={offerCount} onListOfferHover={onListOfferHover}/>
+              <OffersList offers={offers} offerCount={offerCount} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">

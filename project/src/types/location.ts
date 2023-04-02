@@ -1,7 +1,7 @@
 export type Location = {
   title: string;
-lat: number;
-lng: number;
+  latitude: number;
+  longitude: number;
 }
 
 export type Locations = Location[];

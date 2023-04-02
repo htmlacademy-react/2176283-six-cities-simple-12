@@ -8,6 +8,7 @@ import { PremiumSticker } from '../../components/premium-sticker/premium-sticker
 import { StatusPro } from '../../components/status-pro/status-pro';
 import { Offers } from '../../types/offer';
 import { AppRoute } from '../../const';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 
 type OfferUserLoggedPageProps = {
   offers: Offers;
@@ -146,34 +147,9 @@ function OfferUserLoggedPage({offers}: OfferUserLoggedPageProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
 
-                  {reviews.map((review, index) => (
-                    <li key={`${index + 1}-${review.avatar}`}className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
-                        </div>
-                        <span className="reviews__user-name">
-                          {review.name}
-                        </span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: starsRating(review.estimation)}}></span>
-                            <span className="visually-hidden">{review.estimation}</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                          {review.text}
-                        </p>
-                        <time className="reviews__time" dateTime={review.date}>April 2019</time>
-                      </div>
-                    </li>
-                  ))}
+                <ReviewsList reviews={reviews} starsRating={starsRating}/>
 
-                </ul>
                 <CommentSubmissionForm/>
               </section>
             </div>
