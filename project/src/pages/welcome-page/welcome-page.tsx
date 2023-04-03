@@ -16,15 +16,15 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState({});
 
-  const handleListOfferHover: (listOfferId: number | null) => void = (listOfferId: number | null) => {
+  const handleListOfferHover = (listOfferId: number | null) => {
     const currentOffer = offers.find((offer) =>
       offer.id === listOfferId,
     );
     if(currentOffer) {
-      return setSelectedOffer(currentOffer);
+      setSelectedOffer(currentOffer);
     }
     else {
-      return setSelectedOffer('');
+      setSelectedOffer('');
     }
   };
 
