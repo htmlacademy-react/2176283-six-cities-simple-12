@@ -3,6 +3,11 @@ import { Reviews } from './review';
 
 export type Offer = {
   city: object;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
   id: number; //уникальный идентификатор
   images: string[]; //Фотографии. Выводится до 6-ти изображений.
   previewImage: string;
