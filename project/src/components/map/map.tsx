@@ -47,7 +47,7 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
 
   return (
     <div
-      style={{height: '560px'}}
+      style={{height: '580px'}}
       ref={mapRef}
     >
     </div>
