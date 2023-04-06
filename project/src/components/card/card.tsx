@@ -4,13 +4,13 @@ import { starsRating } from '../../hooks/stars-rating/stars-rating';
 import { StickerProCard } from '../sticker-pro-card/sticker-pro-card';
 import { MouseEventHandler } from 'react';
 
-type OfferUserLoggedPageProps = {
+type OfferCardProps = {
   offer: Offer;
   onMouseOver: MouseEventHandler<HTMLElement>;
   onMouseOut: MouseEventHandler<HTMLElement>;
 }
 
-function OfferCard({offer, onMouseOver, onMouseOut}: OfferUserLoggedPageProps): JSX.Element {
+function OfferCard({offer, onMouseOver, onMouseOut}: OfferCardProps): JSX.Element {
 
   const {id, price, type, rating, title, previewImage, premium} = offer;
 

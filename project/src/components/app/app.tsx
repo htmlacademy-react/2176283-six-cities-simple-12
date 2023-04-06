@@ -9,10 +9,11 @@ import { Offers } from '../../types/offer';
 
 type AppWelcomePageProps = {
   offerCount: number;
+  nearbyOfferCount: number;
   offers: Offers;
 }
 
-function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
+function App({offerCount, nearbyOfferCount, offers}: AppWelcomePageProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -28,7 +29,7 @@ function App({offerCount, offers}: AppWelcomePageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferUserLoggedPage offers={offers}/>}
+            element = {<OfferUserLoggedPage offers={offers} nearbyOfferCount={nearbyOfferCount}/>}
           />
           <Route
             path={AppRoute.NoFound}
