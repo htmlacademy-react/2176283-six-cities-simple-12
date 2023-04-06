@@ -163,14 +163,18 @@ function OfferUserLoggedPage({offers, nearbyOfferCount}: OfferUserLoggedPageProp
             </div>
           </div>
           <section className="property__map map">
+
             <Map city = {CITY} offers={offers} selectedOffer={currentOffer}/>
+
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers} offerCount={nearbyOfferCount} /*onListOfferHover={handleListOfferHover}*//>
+
+              <OffersList offers={offers.slice(0, nearbyOfferCount)} />
+
             </div>
           </section>
         </div>

@@ -107,7 +107,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
                 </ul>
               </form>
 
-              <OffersList offers={offers} offerCount={offerCount} onListOfferHover={handleListOfferHover}/>
+              <OffersList offers={offers.slice(0, offerCount)} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
