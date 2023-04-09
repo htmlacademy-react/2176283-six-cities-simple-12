@@ -38,3 +38,10 @@ export const CITIES = [
     zoom: 10,
   },
 ];
+
+export const SORTING_LIST = [
+  {label: 'Popular'},
+  {label: 'Price: low to high'},
+  {label: 'Price: high to low'},
+  {label: 'Top rated first'}
+];
