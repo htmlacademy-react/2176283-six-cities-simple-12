@@ -2,10 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import OffersList from '../offers-list/offers-list';
 import { Offers } from '../../types/offer';
 import LocationsList from '../../components/locations-list/locations-list';
-import { CITIES } from '../../const';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { clickCity, addOffers } from '../../store/action';
+import { City } from '../../types/city';
 
 type WelcomePageProps = {
   offerCount: number;
@@ -14,10 +15,21 @@ type WelcomePageProps = {
 
 function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.city);
+  const currentOffers = useAppSelector((state) => state.offers);
   const [selectedOffer, setSelectedOffer] = useState({});
 
+  useEffect(() => {
+    dispatch(addOffers(
+      offers.filter((offer) => offer.city.name === currentCity.title)
+    ));
+  }, [currentCity, dispatch, offers]);
+
+  const onClickCity = (city: City) => {dispatch(clickCity(city));};
+
   const handleListOfferHover = (listOfferId: number | null) => {
-    const currentOffer = offers.find((offer) =>
+    const currentOffer = currentOffers.find((offer) =>
       offer.id === listOfferId,
     );
     if(currentOffer) {
@@ -82,7 +94,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <LocationsList locations={CITIES}/>
+            <LocationsList locations={currentCity} onClickCity={onClickCity}/>
 
           </section>
         </div>
@@ -90,7 +102,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -107,13 +119,13 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
                 </ul>
               </form>
 
-              <OffersList offers={offers.slice(0, offerCount)} onListOfferHover={handleListOfferHover}/>
+              <OffersList offers={currentOffers.slice(0, offerCount)} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
 
-                <Map city = {CITY} offers={offers} selectedOffer={selectedOffer}/>
+                <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
 
               </section>
             </div>

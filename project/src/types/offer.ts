@@ -2,7 +2,14 @@ import { Host } from './host';
 import { Reviews } from './review';
 
 export type Offer = {
-  city: object;
+  city: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+    name: string;
+  };
   location: {
     latitude: number;
     longitude: number;
