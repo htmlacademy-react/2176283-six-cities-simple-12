@@ -1,33 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../offers-list/offers-list';
-import { Offers } from '../../types/offer';
 import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { clickCity, addOffers } from '../../store/action';
+import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 
-type WelcomePageProps = {
-  offerCount: number;
-  offers: Offers;
-}
-
-function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
+function WelcomePage(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
-  const currentOffers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers);
+  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
 
   useEffect(() => {
     dispatch(addOffers(
-      offers.filter((offer) => offer.city.name === currentCity.title)
+      offers
     ));
-  }, [currentCity, dispatch, offers]);
+  }, [dispatch, offers]);
 
-  const onClickCity = (city: City) => {dispatch(clickCity(city));};
+  const onCityClick = (city: City) => {dispatch(changeCity(city));};
 
   const handleListOfferHover = (listOfferId: number | null) => {
     const currentOffer = currentOffers.find((offer) =>
@@ -95,7 +90,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <LocationsList locations={currentCity} onClickCity={onClickCity}/>
+            <LocationsList locations={currentCity} onCityClick={onCityClick}/>
 
           </section>
         </div>
@@ -107,7 +102,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
 
               <SortingOptions/>
 
-              <OffersList offers={currentOffers.slice(0, offerCount)} onListOfferHover={handleListOfferHover}/>
+              <OffersList offers={currentOffers} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">

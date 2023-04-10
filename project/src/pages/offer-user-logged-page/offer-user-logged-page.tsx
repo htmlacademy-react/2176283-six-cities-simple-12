@@ -6,20 +6,22 @@ import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
 import { starsRating } from '../../hooks/stars-rating/stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
-import { Offers } from '../../types/offer';
 import { AppRoute } from '../../const';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
 import OffersList from '../offers-list/offers-list';
+import { useAppSelector } from '../../hooks';
 
 
 type OfferUserLoggedPageProps = {
-  offers: Offers;
   nearbyOfferCount: number;
 }
 
-function OfferUserLoggedPage({offers, nearbyOfferCount}: OfferUserLoggedPageProps): JSX.Element {
+function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
+
   const { id } = useParams();
   const userId = Number(id);
 
@@ -164,7 +166,7 @@ function OfferUserLoggedPage({offers, nearbyOfferCount}: OfferUserLoggedPageProp
           </div>
           <section className="property__map map">
 
-            <Map city = {CITY} offers={offers} selectedOffer={currentOffer}/>
+            <Map city = {currentCity} offers={offers} selectedOffer={currentOffer}/>
 
           </section>
         </section>

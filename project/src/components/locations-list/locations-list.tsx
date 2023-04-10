@@ -1,14 +1,13 @@
-//import { Locations } from '../../types/location';
 import { CITIES } from '../../const';
 import { City } from '../../types/city';
 
 
 type LocationsListProps = {
   locations: City;
-  onClickCity: (city: City) => void;
+  onCityClick: (city: City) => void;
   }
 
-function LocationsList({locations, onClickCity}: LocationsListProps): JSX.Element {
+function LocationsList({locations, onCityClick}: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((CITY, index) => (
@@ -17,7 +16,7 @@ function LocationsList({locations, onClickCity}: LocationsListProps): JSX.Elemen
             href="#todo"
             onClick={(evt) => {
               evt.preventDefault();
-              onClickCity(CITY);
+              onCityClick(CITY);
             }}
           >
             <span>{CITY.title}</span>

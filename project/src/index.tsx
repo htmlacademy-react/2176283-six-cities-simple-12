@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { offers } from './mocks/offers';
 import { store } from './store';
 
 const Setting = {
@@ -18,9 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <App
-        offerCount = {Setting.MainOfferCount}
         nearbyOfferCount = {Setting.NearbyOfferCount}
-        offers = {offers}
       />
     </Provider>
   </React.StrictMode>,

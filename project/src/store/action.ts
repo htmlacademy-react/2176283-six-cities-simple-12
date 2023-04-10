@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
 
-export const clickCity = createAction('offers/clickCity', (city: City) =>({
+export const changeCity = createAction('offers/clickCity', (city: City) =>({
   payload: city,
 }));
 
