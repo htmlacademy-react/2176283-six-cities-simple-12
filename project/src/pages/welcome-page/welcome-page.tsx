@@ -1,23 +1,31 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../offers-list/offers-list';
-import { Offers } from '../../types/offer';
 import LocationsList from '../../components/locations-list/locations-list';
-import { CITIES } from '../../const';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, addOffers } from '../../store/action';
+import { City } from '../../types/city';
+import SortingOptions from '../../components/sorting-options/sorting-options';
 
-type WelcomePageProps = {
-  offerCount: number;
-  offers: Offers;
-}
+function WelcomePage(): JSX.Element {
 
-function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
-
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
 
+  useEffect(() => {
+    dispatch(addOffers(
+      offers
+    ));
+  }, [dispatch, offers]);
+
+  const onCityClick = (city: City) => {dispatch(changeCity(city));};
+
   const handleListOfferHover = (listOfferId: number | null) => {
-    const currentOffer = offers.find((offer) =>
+    const currentOffer = currentOffers.find((offer) =>
       offer.id === listOfferId,
     );
     if(currentOffer) {
@@ -82,7 +90,7 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <LocationsList locations={CITIES}/>
+            <LocationsList locations={currentCity} onCityClick={onCityClick}/>
 
           </section>
         </div>
@@ -90,30 +98,17 @@ function WelcomePage({offerCount, offers}: WelcomePageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-              Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
 
-              <OffersList offers={offers.slice(0, offerCount)} onListOfferHover={handleListOfferHover}/>
+              <SortingOptions/>
+
+              <OffersList offers={currentOffers} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
 
-                <Map city = {CITY} offers={offers} selectedOffer={selectedOffer}/>
+                <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
 
               </section>
             </div>

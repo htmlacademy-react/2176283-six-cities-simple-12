@@ -5,15 +5,12 @@ import WelcomePage from '../../pages/welcome-page/welcome-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferUserLoggedPage from '../../pages/offer-user-logged-page/offer-user-logged-page';
 import ErrorPage from '../../pages/error-page/error-page';
-import { Offers } from '../../types/offer';
 
 type AppWelcomePageProps = {
-  offerCount: number;
   nearbyOfferCount: number;
-  offers: Offers;
 }
 
-function App({offerCount, nearbyOfferCount, offers}: AppWelcomePageProps): JSX.Element {
+function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -21,7 +18,7 @@ function App({offerCount, nearbyOfferCount, offers}: AppWelcomePageProps): JSX.E
         <Routes>
           <Route
             path={AppRoute.Root}
-            element = {<WelcomePage offerCount={offerCount} offers = {offers}/>}
+            element = {<WelcomePage/>}
           />
           <Route
             path={AppRoute.Login}
@@ -29,7 +26,7 @@ function App({offerCount, nearbyOfferCount, offers}: AppWelcomePageProps): JSX.E
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferUserLoggedPage offers={offers} nearbyOfferCount={nearbyOfferCount}/>}
+            element = {<OfferUserLoggedPage nearbyOfferCount={nearbyOfferCount}/>}
           />
           <Route
             path={AppRoute.NoFound}

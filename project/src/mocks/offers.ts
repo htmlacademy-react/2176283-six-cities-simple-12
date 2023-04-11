@@ -48,6 +48,89 @@ export const offers: Offers = [
   }, {
     city: {
       location: {
+        latitude: 48.864716,
+        longitude: 2.349014,
+        zoom: 10,
+      },
+      name: 'Paris'
+    },
+    location: {
+      latitude: 48.8647553943508,
+      longitude: 2.34909666406198,
+      zoom: 8
+    },
+    id: 3242,
+    images: [
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/room.jpg',
+      'img/apartment-small-04.jpg',
+      'img/apartment-02.jpg',
+    ],
+    previewImage: 'img/apartment-02.jpg',
+    title: 'Title..........title...........title',
+    description: 'Описываются самые лучшие стороны этого жилья . . . . . . . много текста . . . . . . . . . . . . . . . . много текста . . . . . . ',
+    premium: true,
+    type: 'Private Room',
+    rating: 5.0,
+    bedrooms: 5,
+    maxAdults: 5,
+    price: 1200,
+    goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
+    host:{
+      id: 123,
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      name: 'Avrora',
+      isPro: true
+    },
+    reviews: reviews,
+  },
+  {
+    city: {
+      location: {
+        latitude: 50.933594,
+        longitude: 6.961899,
+        zoom: 10,
+      },
+      name: 'Cologne'
+    },
+    location: {
+      latitude: 50.9347553943508,
+      longitude: 6.96909666406198,
+      zoom: 8
+    },
+    id: 3242,
+    images: [
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/room.jpg',
+      'img/apartment-small-04.jpg',
+      'img/apartment-02.jpg',
+    ],
+    previewImage: 'img/apartment-02.jpg',
+    title: 'Title..........title...........title',
+    description: 'Описываются самые лучшие стороны этого жилья . . . . . . . много текста . . . . . . . . . . . . . . . . много текста . . . . . . ',
+    premium: true,
+    type: 'Private Room',
+    rating: 5.0,
+    bedrooms: 5,
+    maxAdults: 5,
+    price: 1200,
+    goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
+    host:{
+      id: 123,
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      name: 'Avrora',
+      isPro: true
+    },
+    reviews: reviews,
+  }, {
+    city: {
+      location: {
         latitude: 52.370216,
         longitude: 4.895168,
         zoom: 10

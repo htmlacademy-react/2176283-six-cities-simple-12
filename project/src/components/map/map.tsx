@@ -29,6 +29,15 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.flyTo(
+        [city.latitude, city.longitude],
+        city.zoom,
+      );
+    }
+  }, [map, city]);
+
+  useEffect(() => {
+    if (map) {
       offers.forEach((offer) => {
         leaflet
           .marker({
