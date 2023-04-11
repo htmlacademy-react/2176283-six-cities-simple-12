@@ -4,4 +4,5 @@ import { Offer } from './offer';
 export type InitialState = {
   city: City;
   offers: Offer[];
+  isOpenSort: boolean;
 };

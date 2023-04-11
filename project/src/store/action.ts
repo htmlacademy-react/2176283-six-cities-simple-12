@@ -9,3 +9,5 @@ export const changeCity = createAction('offers/clickCity', (city: City) =>({
 export const addOffers = createAction('offers/addOffers', (offers: Offer[]) => ({
   payload: offers,
 }));
+
+export const openSorting = createAction('offers/openSorting');

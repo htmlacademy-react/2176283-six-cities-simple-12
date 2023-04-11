@@ -100,7 +100,7 @@ function WelcomePage(): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
 
-              <SortingOptions/>
+              <SortingOptions offers={currentOffers}/>
 
               <OffersList offers={currentOffers} onListOfferHover={handleListOfferHover}/>
 
