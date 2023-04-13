@@ -1,17 +1,16 @@
 import { SORTING_LIST } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeSorting, openSorting } from '../../store/action';
-import { Offers } from '../../types/offer';
+import { Sort } from '../../types/sorting';
 
-type SortingOptionsProps ={
-  offers:Offers;
+type SortingOptionsProps = {
+  currenSorting: Sort;
 }
 
-function SortingOptions({offers}: SortingOptionsProps): JSX.Element {
+function SortingOptions({currenSorting}: SortingOptionsProps ): JSX.Element {
 
   const dispatch = useAppDispatch();
   const isOpenSorfing = useAppSelector((state) => state.isOpenSort);
-  const currenSorting = useAppSelector((state) => state.sorting);
 
   return (
     <form className="places__sorting" action="#" method="get">

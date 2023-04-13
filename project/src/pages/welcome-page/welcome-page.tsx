@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
+import { useSortingOffers } from '../../hooks/use-sorting-offers/use-sorting-offers';
 
 function WelcomePage(): JSX.Element {
 
@@ -15,6 +16,7 @@ function WelcomePage(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
+  const currenSorting = useAppSelector((state) => state.sorting);
 
   useEffect(() => {
     dispatch(addOffers(
@@ -100,9 +102,9 @@ function WelcomePage(): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
 
-              <SortingOptions offers={currentOffers}/>
+              <SortingOptions currenSorting={currenSorting}/>
 
-              <OffersList offers={currentOffers} onListOfferHover={handleListOfferHover}/>
+              <OffersList offers={useSortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
