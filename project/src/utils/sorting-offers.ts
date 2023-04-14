@@ -1,6 +1,5 @@
-import { Offers } from '../../types/offer';
-import { Sort } from '../../types/sorting';
-
+import { Offers } from '../types/offer';
+import { Sort } from '../types/sorting';
 export const useSortingOffers = (offers: Offers, currenSorting: Sort) => {
 
   if (currenSorting.label === 'Price: low to high') {

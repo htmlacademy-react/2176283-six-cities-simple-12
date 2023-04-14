@@ -11,7 +11,7 @@ export const addOffers = createAction('offers/addOffers', (offers: Offer[]) => (
   payload: offers,
 }));
 
-export const openSorting = createAction('offers/openSorting');
+export const toggleSortingOpen = createAction('offers/openSorting');
 
 export const changeSorting = createAction('offers/changeSorting', (sorting: Sort) => ({
   payload:sorting

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { useSortingOffers } from '../../hooks/use-sorting-offers/use-sorting-offers';
+import { useSortingOffers } from '../../utils/sorting-offers';
 
 function WelcomePage(): JSX.Element {
 

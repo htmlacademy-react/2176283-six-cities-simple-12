@@ -1,6 +1,6 @@
 import { SORTING_LIST } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSorting, openSorting } from '../../store/action';
+import { changeSorting, toggleSortingOpen } from '../../store/action';
 import { Sort } from '../../types/sorting';
 
 type SortingOptionsProps = {
@@ -15,7 +15,7 @@ function SortingOptions({currenSorting}: SortingOptionsProps ): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => dispatch(openSorting())}>
+      <span className="places__sorting-type" tabIndex={0} onClick={() => dispatch(toggleSortingOpen())}>
         {currenSorting.label}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
