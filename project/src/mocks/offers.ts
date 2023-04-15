@@ -33,10 +33,10 @@ export const offers: Offers = [
     description: 'Описываются самые лучшие стороны этого жилья . . . . . . . много текста . . . . . . . . . . . . . . . . много текста . . . . . . ',
     premium: true,
     type: 'Private Room',
-    rating: 5.0,
+    rating: 4.4,
     bedrooms: 5,
     maxAdults: 5,
-    price: 1200,
+    price: 999,
     goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
       id: 123,
@@ -77,7 +77,7 @@ export const offers: Offers = [
     rating: 5.0,
     bedrooms: 5,
     maxAdults: 5,
-    price: 1200,
+    price: 1000,
     goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
       id: 123,
@@ -119,7 +119,7 @@ export const offers: Offers = [
     rating: 5.0,
     bedrooms: 5,
     maxAdults: 5,
-    price: 1200,
+    price: 1100,
     goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
       id: 123,
@@ -155,7 +155,7 @@ export const offers: Offers = [
     rating: 1.5,
     bedrooms: 3,
     maxAdults: 5,
-    price: 1200,
+    price: 1190,
     goods:['123', '345', '567'],
     host:{
       id: 345,
@@ -196,7 +196,7 @@ export const offers: Offers = [
     rating: 2.9,
     bedrooms: 5,
     maxAdults: 5,
-    price: 1200,
+    price: 2200,
     goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
       id: 123,
@@ -237,7 +237,7 @@ export const offers: Offers = [
     rating: 4.3,
     bedrooms: 5,
     maxAdults: 5,
-    price: 1200,
+    price: 5000,
     goods:['Wi-Fi', 'TV', 'Parking', 'Kitchen', 'Coffee machine', 'Heating'],
     host:{
       id: 123,
@@ -273,7 +273,7 @@ export const offers: Offers = [
     rating: 2.3,
     bedrooms: 3,
     maxAdults: 5,
-    price: 1200,
+    price: 600,
     goods:['123', '345', '567'],
     host:{
       id: 345,
@@ -309,7 +309,7 @@ export const offers: Offers = [
     rating: 1.3,
     bedrooms: 3,
     maxAdults: 5,
-    price: 1200,
+    price: 790,
     goods:['123', '345', '567'],
     host:{
       id: 345,
@@ -345,7 +345,7 @@ export const offers: Offers = [
     rating: 3.0,
     bedrooms: 3,
     maxAdults: 5,
-    price: 1200,
+    price: 1560,
     goods:['123', '345', '567'],
     host:{
       id: 345,

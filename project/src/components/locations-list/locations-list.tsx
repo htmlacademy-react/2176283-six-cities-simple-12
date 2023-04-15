@@ -1,7 +1,6 @@
 import { CITIES } from '../../const';
 import { City } from '../../types/city';
 
-
 type LocationsListProps = {
   locations: City;
   onCityClick: (city: City) => void;
