@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES, SORTING_LIST } from '../const';
-import { changeCity, addOffers, toggleSortingOpen, changeSorting } from './action';
+import { changeCity, addOffers, toggleSortingOpen, changeSorting, loadOffers } from './action';
 import { InitialState } from '../types/inicial-state';
-import { offers } from '../mocks/offers';
+//import { offers } from '../mocks/offers';
 
 const initialState: InitialState = {
   city: CITIES[0],
-  offers,
+  offers:[],
   isOpenSort: false,
   sorting: SORTING_LIST[0],
 };
@@ -25,6 +25,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeSorting, (state, action) => {
       state.sorting = action.payload;
       state.isOpenSort = !state.isOpenSort;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
     });
 });
 
