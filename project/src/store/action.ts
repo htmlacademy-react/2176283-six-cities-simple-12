@@ -18,3 +18,6 @@ export const changeSorting = createAction('offers/changeSorting', (sorting: Sort
 }));
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
+
+export const setOffersDataLoadingStatus = createAction<boolean>
+('data/setOffersDataLoadingStatus');

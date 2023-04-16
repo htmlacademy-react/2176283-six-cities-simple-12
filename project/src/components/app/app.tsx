@@ -5,13 +5,20 @@ import WelcomePage from '../../pages/welcome-page/welcome-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferUserLoggedPage from '../../pages/offer-user-logged-page/offer-user-logged-page';
 import ErrorPage from '../../pages/error-page/error-page';
+import LoadingPage from '../../pages/loading-page/loading-page';
+import { useAppSelector } from '../../hooks';
 
 type AppWelcomePageProps = {
   nearbyOfferCount: number;
 }
 
 function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
+  const isOffersDataLoading = useAppSelector((state) =>
+    state.isOffersDataLoading);
 
+  if (isOffersDataLoading) {
+    return (<LoadingPage/>);
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
