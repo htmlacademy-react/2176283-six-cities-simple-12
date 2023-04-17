@@ -7,4 +7,5 @@ export type InitialState = {
   offers: Offer[];
   isOpenSort: boolean;
   sorting: Sort;
+  isOffersDataLoading: boolean;
 };

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { useSortingOffers } from '../../utils/sorting-offers';
+import { sortingOffers } from '../../utils/sorting-offers';
 
 function WelcomePage(): JSX.Element {
 
@@ -104,7 +104,7 @@ function WelcomePage(): JSX.Element {
 
               <SortingOptions currenSorting={currenSorting}/>
 
-              <OffersList offers={useSortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
+              <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">

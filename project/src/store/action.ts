@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/city';
-import { Offer } from '../types/offer';
+import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
@@ -16,3 +16,8 @@ export const toggleSortingOpen = createAction('offers/openSorting');
 export const changeSorting = createAction('offers/changeSorting', (sorting: Sort) => ({
   payload:sorting
 }));
+
+export const loadOffers = createAction<Offers>('data/loadOffers');
+
+export const setOffersDataLoadingStatus = createAction<boolean>
+('data/setOffersDataLoadingStatus');
