@@ -8,8 +8,15 @@ import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { sortingOffers } from '../../utils/sorting-offers';
+import LoadingPage from '../../pages/loading-page/loading-page';
+import { AuthorizationStatus } from '../../const';
 
-function WelcomePage(): JSX.Element {
+type WelcomePageProps = {
+  isOffersDataLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+}
+
+function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
@@ -35,6 +42,19 @@ function WelcomePage(): JSX.Element {
     }
     else {
       setSelectedOffer('');
+    }
+  };
+
+  const loadingOffers = () => {
+    if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+      return (
+        <LoadingPage/>
+      );
+    }
+    else {
+      return (
+        <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
+      );
     }
   };
 
@@ -104,7 +124,7 @@ function WelcomePage(): JSX.Element {
 
               <SortingOptions currenSorting={currenSorting}/>
 
-              <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
+              {loadingOffers()}
 
             </section>
             <div className="cities__right-section">
