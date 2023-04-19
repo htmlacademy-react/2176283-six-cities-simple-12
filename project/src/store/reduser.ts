@@ -9,7 +9,8 @@ import {
   loadOffers,
   setOffersDataLoadingStatus,
   requireAuthorization,
-  setError
+  setError,
+  setEmail
 } from './action';
 
 import { InitialState } from '../types/inicial-state';
@@ -23,7 +24,7 @@ const initialState: InitialState = {
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-
+  email: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -52,6 +53,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setEmail, (state, action) => {
+      state.email = action.payload;
     });
 });
 

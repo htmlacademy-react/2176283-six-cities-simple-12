@@ -9,7 +9,8 @@ import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { sortingOffers } from '../../utils/sorting-offers';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { logoutAction } from '../../store/api-actions';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
@@ -24,6 +25,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
+  const currentEmail = useAppSelector((state) => state.email);
 
   useEffect(() => {
     dispatch(addOffers(
@@ -45,7 +47,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
     }
   };
 
-  const loadingOffers = () => {
+  const renderOffers = () => {
     if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
       return (
         <LoadingPage/>
@@ -93,12 +95,18 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
                 <li className="header__nav-item user">
                   <div className="header__nav-profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{(authorizationStatus === AuthorizationStatus.Auth) ? currentEmail : ''}</span>
                   </div>
                 </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#todo">
-                    <span className="header__signout">Sign out</span>
+                <li className="header__nav-item" >
+                  <a className="header__nav-link"
+                    onClick={() => {
+                      dispatch(logoutAction());
+                    }}
+                    href={AppRoute.Login}
+                  >
+                    <span className="header__signout">{(authorizationStatus === AuthorizationStatus.Auth) ? 'Sign out' : 'Sign in'}
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -124,7 +132,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
 
               <SortingOptions currenSorting={currenSorting}/>
 
-              {loadingOffers()}
+              {renderOffers()}
 
             </section>
             <div className="cities__right-section">

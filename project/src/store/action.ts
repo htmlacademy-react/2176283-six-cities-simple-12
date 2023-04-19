@@ -27,3 +27,5 @@ export const setError = createAction<string | null>('offers/setError');
 
 export const setOffersDataLoadingStatus = createAction<boolean>
 ('data/setOffersDataLoadingStatus');
+
+export const setEmail = createAction<string | null>('page/setEmail');
