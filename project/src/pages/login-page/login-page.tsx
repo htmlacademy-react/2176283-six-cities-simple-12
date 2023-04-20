@@ -2,17 +2,34 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Root);
+  }
+  const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
+  const hasNumber = (password:string) => /[0-9]/.test(password);
+
+  const isValidPassword = (password: string) => {
+    if (!hasLetter(password)) {
+      return false;
+    }
+    if (!hasNumber(password)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -21,7 +38,7 @@ function LoginPage(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null && isValidPassword(passwordRef.current.value) === true) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -74,7 +91,7 @@ function LoginPage(): JSX.Element {
                 <label className="visually-hidden">Password</label>
                 <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
-              <button onClick={() => navigate(AppRoute.Root)} className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
