@@ -7,6 +7,8 @@ import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
+import { Comments } from '../types/comments';
+import { addComments } from './action';
 
 export const clearErrorAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -33,6 +35,18 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Offers>(APIRoute.Offers);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchComments',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comments>(APIRoute.Comments);
+    dispatch(addComments(data));
   },
 );
 

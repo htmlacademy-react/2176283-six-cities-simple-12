@@ -3,6 +3,7 @@ import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
 import { AuthorizationStatus } from '../const';
+import { Comments } from '../types/comments';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
   payload: city,
@@ -10,6 +11,10 @@ export const changeCity = createAction('offers/clickCity', (city: City) =>({
 
 export const addOffers = createAction('offers/addOffers', (offers: Offer[]) => ({
   payload: offers,
+}));
+
+export const addComments = createAction('comments/addComments', (comments: Comments) => ({
+  payload: comments,
 }));
 
 export const toggleSortingOpen = createAction('offers/openSorting');
