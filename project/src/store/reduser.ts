@@ -1,6 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CITIES, SORTING_LIST } from '../const';
-import { changeCity, addOffers, toggleSortingOpen, changeSorting, loadOffers, setOffersDataLoadingStatus } from './action';
+import { CITIES, SORTING_LIST, AuthorizationStatus } from '../const';
+
+import {
+  changeCity,
+  addOffers,
+  toggleSortingOpen,
+  changeSorting,
+  loadOffers,
+  setOffersDataLoadingStatus,
+  requireAuthorization,
+  setError,
+  setEmail
+} from './action';
+
 import { InitialState } from '../types/inicial-state';
 //import { offers } from '../mocks/offers';
 
@@ -10,6 +22,9 @@ const initialState: InitialState = {
   isOpenSort: false,
   sorting: SORTING_LIST[0],
   isOffersDataLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
+  email: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,8 +45,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setEmail, (state, action) => {
+      state.email = action.payload;
     });
 });
 

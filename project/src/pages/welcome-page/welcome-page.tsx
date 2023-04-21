@@ -8,8 +8,16 @@ import { changeCity, addOffers } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { sortingOffers } from '../../utils/sorting-offers';
+import LoadingPage from '../../pages/loading-page/loading-page';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { logoutAction } from '../../store/api-actions';
 
-function WelcomePage(): JSX.Element {
+type WelcomePageProps = {
+  isOffersDataLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+}
+
+function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
@@ -17,6 +25,7 @@ function WelcomePage(): JSX.Element {
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
+  const currentEmail = useAppSelector((state) => state.email);
 
   useEffect(() => {
     dispatch(addOffers(
@@ -35,6 +44,19 @@ function WelcomePage(): JSX.Element {
     }
     else {
       setSelectedOffer('');
+    }
+  };
+
+  const renderOffers = () => {
+    if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+      return (
+        <LoadingPage/>
+      );
+    }
+    else {
+      return (
+        <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
+      );
     }
   };
 
@@ -73,12 +95,18 @@ function WelcomePage(): JSX.Element {
                 <li className="header__nav-item user">
                   <div className="header__nav-profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{(authorizationStatus === AuthorizationStatus.Auth) ? currentEmail : ''}</span>
                   </div>
                 </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#todo">
-                    <span className="header__signout">Sign out</span>
+                <li className="header__nav-item" >
+                  <a className="header__nav-link"
+                    onClick={() => {
+                      dispatch(logoutAction());
+                    }}
+                    href={AppRoute.Login}
+                  >
+                    <span className="header__signout">{(authorizationStatus === AuthorizationStatus.Auth) ? 'Sign out' : 'Sign in'}
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -104,7 +132,7 @@ function WelcomePage(): JSX.Element {
 
               <SortingOptions currenSorting={currenSorting}/>
 
-              <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
+              {renderOffers()}
 
             </section>
             <div className="cities__right-section">

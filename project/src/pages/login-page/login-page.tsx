@@ -1,8 +1,51 @@
 import { Helmet } from 'react-helmet-async';
-
 import Logo from '../../components/logo/logo';
+import { useRef, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 function LoginPage(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Root);
+  }
+  const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
+  const hasNumber = (password:string) => /[0-9]/.test(password);
+
+  const isValidPassword = (password: string) => {
+    if (!hasLetter(password)) {
+      return false;
+    }
+    if (!hasNumber(password)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null && isValidPassword(passwordRef.current.value) === true) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
   return (
     <div className="page page--gray page--login">
       <div style={{display: 'none'}}>
@@ -39,14 +82,14 @@ function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required/>
+                <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required/>
+                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
