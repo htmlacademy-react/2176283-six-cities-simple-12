@@ -16,6 +16,7 @@ function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
     state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) =>
     state.isOffersDataLoading);
+  const currentEmail = useAppSelector((state) => state.email);
 
   return (
     <HelmetProvider>
@@ -23,7 +24,7 @@ function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element = {<WelcomePage isOffersDataLoading = {isOffersDataLoading} authorizationStatus = {authorizationStatus}/>}
+            element = {<WelcomePage isOffersDataLoading = {isOffersDataLoading} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -31,7 +32,7 @@ function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferUserLoggedPage nearbyOfferCount={nearbyOfferCount}/>}
+            element = {<OfferUserLoggedPage nearbyOfferCount={nearbyOfferCount} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
             path={AppRoute.NoFound}

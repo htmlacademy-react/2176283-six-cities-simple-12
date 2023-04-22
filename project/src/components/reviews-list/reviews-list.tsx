@@ -1,16 +1,16 @@
-import { Reviews } from '../../types/review';
+import { Comments } from '../../types/comments';
 import ReviewItem from '../review-form/review-item';
 
 type ReviewsListProps ={
-  reviews: Reviews;
-  starsRating:(item: number) => string;
+  reviews: Comments;
+  starsRating: (item:number) => string;
 }
 
 function ReviewsList({reviews, starsRating}: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
       {reviews.map((review, index) => (
-        <ReviewItem key={`${index + 1}-${review.avatar}`} review={review} starsRating={starsRating}/>
+        <ReviewItem key={`${index + 1}-${review.user.avatarUrl}`} review={review} starsRating={starsRating}/>
       ))}
 
     </ul>);

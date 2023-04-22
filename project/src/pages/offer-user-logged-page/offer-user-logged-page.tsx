@@ -11,17 +11,21 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
+import HeaderNav from '../../components/header-nav/header-nav';
+import { AuthorizationStatus } from '../../const';
 
 
 type OfferUserLoggedPageProps = {
   nearbyOfferCount: number;
+  authorizationStatus: AuthorizationStatus;
+  currentEmail: string | null;
 }
 
-function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.Element {
+function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferUserLoggedPageProps): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
-
+  const comments = useAppSelector((state) => state.comments);
   const { id } = useParams();
   const userId = Number(id);
 
@@ -31,7 +35,7 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
     return <Navigate to={AppRoute.NoFound}/>;
   }
 
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = currentOffer;
+  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
 
   return (
     <div className="page">
@@ -59,23 +63,13 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
+
               <Logo/>
+
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#todo">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+
+            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+
           </div>
         </div>
       </header>
@@ -154,10 +148,10 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot;
-                  <span className="reviews__amount">{reviews.length}</span>
+                  <span className="reviews__amount">{comments.length}</span>
                 </h2>
 
-                <ReviewsList reviews={reviews} starsRating={starsRating}/>
+                <ReviewsList reviews={comments} starsRating={starsRating}/>
 
                 <CommentSubmissionForm/>
 

@@ -10,7 +10,8 @@ import {
   setOffersDataLoadingStatus,
   requireAuthorization,
   setError,
-  setEmail
+  setEmail,
+  addComments
 } from './action';
 
 import { InitialState } from '../types/inicial-state';
@@ -19,6 +20,7 @@ import { InitialState } from '../types/inicial-state';
 const initialState: InitialState = {
   city: CITIES[0],
   offers:[],
+  comments: [],
   isOpenSort: false,
   sorting: SORTING_LIST[0],
   isOffersDataLoading: false,
@@ -31,6 +33,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(addComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;

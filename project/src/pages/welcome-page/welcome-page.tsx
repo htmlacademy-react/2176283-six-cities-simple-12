@@ -9,15 +9,16 @@ import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { sortingOffers } from '../../utils/sorting-offers';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { logoutAction } from '../../store/api-actions';
+import HeaderNav from '../../components/header-nav/header-nav';
+import { AuthorizationStatus } from '../../const';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
+  currentEmail: string | null;
 }
 
-function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProps): JSX.Element {
+function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
@@ -25,7 +26,6 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
-  const currentEmail = useAppSelector((state) => state.email);
 
   useEffect(() => {
     dispatch(addOffers(
@@ -90,27 +90,9 @@ function WelcomePage({isOffersDataLoading, authorizationStatus}: WelcomePageProp
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">{(authorizationStatus === AuthorizationStatus.Auth) ? currentEmail : ''}</span>
-                  </div>
-                </li>
-                <li className="header__nav-item" >
-                  <a className="header__nav-link"
-                    onClick={() => {
-                      dispatch(logoutAction());
-                    }}
-                    href={AppRoute.Login}
-                  >
-                    <span className="header__signout">{(authorizationStatus === AuthorizationStatus.Auth) ? 'Sign out' : 'Sign in'}
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+
+            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+
           </div>
         </div>
       </header>
