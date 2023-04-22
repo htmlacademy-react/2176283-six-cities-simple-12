@@ -13,6 +13,7 @@ import OffersList from '../offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
+import { IMAGE_QUANTITY } from '../../const';
 
 
 type OfferUserLoggedPageProps = {
@@ -83,7 +84,7 @@ function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmai
                 <div key={`${image}`} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="studio"/>
                 </div>
-              ))}
+              )).slice(0, IMAGE_QUANTITY)}
 
             </div>
           </div>
@@ -153,7 +154,7 @@ function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmai
 
                 <ReviewsList reviews={comments} starsRating={starsRating}/>
 
-                <CommentSubmissionForm/>
+                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmissionForm/> : ''}
 
               </section>
             </div>
