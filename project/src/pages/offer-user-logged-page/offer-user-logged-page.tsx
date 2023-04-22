@@ -14,7 +14,8 @@ import { useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
 import { IMAGE_QUANTITY } from '../../const';
-
+import { store } from '../../store';
+import { fetchCommentsAction } from '../../store/api-actions';
 
 type OfferUserLoggedPageProps = {
   nearbyOfferCount: number;
@@ -24,12 +25,14 @@ type OfferUserLoggedPageProps = {
 
 function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferUserLoggedPageProps): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
-  const comments = useAppSelector((state) => state.comments);
   const { id } = useParams();
   const userId = Number(id);
 
+  store.dispatch(fetchCommentsAction(userId));
+
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
+  const comments = useAppSelector((state) => state.comments);
   const currentOffer = offers.find((offer) => offer.id === userId);
 
   if(!currentOffer) {

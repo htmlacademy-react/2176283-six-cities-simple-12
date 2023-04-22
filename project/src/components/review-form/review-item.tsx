@@ -6,6 +6,12 @@ type ReviewItemProps = {
 }
 
 function ReviewItem({review, starsRating}: ReviewItemProps): JSX.Element {
+
+  const dateDisplay = new Date(review.date).toLocaleString(
+    'en-US',
+    {year: 'numeric', month: 'long',}
+  );
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -26,7 +32,7 @@ function ReviewItem({review, starsRating}: ReviewItemProps): JSX.Element {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime={review.date}>{review.date}</time>
+        <time className="reviews__time" dateTime={review.date}>{dateDisplay}</time>
       </div>
     </li>);
 }

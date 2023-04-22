@@ -38,14 +38,14 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchCommentsAction = createAsyncThunk<void, undefined, {
+export const fetchCommentsAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchComments',
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Comments>(APIRoute.Comments);
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comments>(APIRoute.Comments.concat(`/${id}`));
     dispatch(addComments(data));
   },
 );

@@ -48,7 +48,7 @@ export const SORTING_LIST = [
 
 export enum APIRoute {
   Offers = '/hotels',
-  Comments = '/comments/2',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
