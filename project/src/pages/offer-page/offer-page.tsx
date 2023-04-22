@@ -17,13 +17,13 @@ import { IMAGE_QUANTITY } from '../../const';
 import { store } from '../../store';
 import { fetchCommentsAction } from '../../store/api-actions';
 
-type OfferUserLoggedPageProps = {
+type OfferPageProps = {
   nearbyOfferCount: number;
   authorizationStatus: AuthorizationStatus;
   currentEmail: string | null;
 }
 
-function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferUserLoggedPageProps): JSX.Element {
+function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
 
   const { id } = useParams();
   const userId = Number(id);
@@ -183,4 +183,4 @@ function OfferUserLoggedPage({nearbyOfferCount, authorizationStatus, currentEmai
   );
 }
 
-export default OfferUserLoggedPage;
+export default OfferPage;

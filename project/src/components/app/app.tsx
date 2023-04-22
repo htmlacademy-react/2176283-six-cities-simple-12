@@ -3,7 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import WelcomePage from '../../pages/welcome-page/welcome-page';
 import LoginPage from '../../pages/login-page/login-page';
-import OfferUserLoggedPage from '../../pages/offer-user-logged-page/offer-user-logged-page';
+import OfferPage from '../../pages/offer-page/offer-page';
 import ErrorPage from '../../pages/error-page/error-page';
 import { useAppSelector } from '../../hooks';
 
@@ -32,7 +32,7 @@ function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferUserLoggedPage nearbyOfferCount={nearbyOfferCount} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
+            element = {<OfferPage nearbyOfferCount={nearbyOfferCount} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
             path={AppRoute.NoFound}
