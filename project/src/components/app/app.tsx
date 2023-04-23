@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { APIRoute } from '../../const';
 import WelcomePage from '../../pages/welcome-page/welcome-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -19,19 +19,19 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route
-            path={AppRoute.Root}
+            path={APIRoute.Root}
             element = {<WelcomePage isOffersDataLoading = {isOffersDataLoading} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
-            path={AppRoute.Login}
+            path={APIRoute.Login}
             element = {<LoginPage/>}
           />
           <Route
-            path={AppRoute.Offer}
+            path={APIRoute.Offers.concat('/:id')}
             element = {<OfferPage authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
-            path={AppRoute.NoFound}
+            path={APIRoute.NoFound}
             element = {<ErrorPage/>}
           />
         </Routes>

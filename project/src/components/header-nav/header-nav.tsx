@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from '../../const';
-import { AppRoute } from '../../const';
+import { APIRoute } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 
@@ -26,7 +26,7 @@ function HeaderNav({authorizationStatus, currentEmail}: HeaderNavProps): JSX.Ele
             onClick={() => {
               dispatch(logoutAction());
             }}
-            href={AppRoute.Login}
+            href={APIRoute.Login}
           >
             <span className="header__signout">{(authorizationStatus === AuthorizationStatus.Auth) ? 'Sign out' : 'Sign in'}
             </span>

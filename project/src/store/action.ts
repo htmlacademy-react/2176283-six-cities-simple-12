@@ -13,6 +13,10 @@ export const addOffers = createAction('offers/addOffers', (offers: Offer[]) => (
   payload: offers,
 }));
 
+export const addOfferSelected = createAction('offers/addofferSelected', (offer: Offer) => ({
+  payload: offer,
+}));
+
 export const addComments = createAction('comments/addComments', (comments: Comments) => ({
   payload: comments,
 }));

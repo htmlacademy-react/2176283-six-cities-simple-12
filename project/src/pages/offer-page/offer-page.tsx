@@ -6,17 +6,15 @@ import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
 import { starsRating } from '../../hooks/stars-rating/stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
-import { AppRoute } from '../../const';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
-import { AuthorizationStatus } from '../../const';
-import { IMAGE_QUANTITY } from '../../const';
+import { APIRoute, AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
 import { store } from '../../store';
-import { fetchCommentsAction, fetchOffersNearbyAction } from '../../store/api-actions';
-import { useEffect} from 'react';
+import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -31,6 +29,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
   useEffect(() => {
     store.dispatch(fetchCommentsAction(userId));
     store.dispatch(fetchOffersNearbyAction(userId));
+    store.dispatch(fetchOfferSelectedAction(userId));
   }, [userId]);
 
   const offers = useAppSelector((state) => state.offers);
@@ -40,7 +39,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
   const currentOffer = offers.find((offer) => offer.id === userId);
 
   if(!currentOffer) {
-    return <Navigate to={AppRoute.NoFound}/>;
+    return <Navigate to={APIRoute.NoFound}/>;
   }
 
   const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;

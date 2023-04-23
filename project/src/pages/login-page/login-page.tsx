@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { APIRoute, AuthorizationStatus } from '../../const';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -15,7 +15,7 @@ function LoginPage(): JSX.Element {
   const navigate = useNavigate();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
+    navigate(APIRoute.Root);
   }
   const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
   const hasNumber = (password:string) => /[0-9]/.test(password);

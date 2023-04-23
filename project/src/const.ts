@@ -1,10 +1,3 @@
-export enum AppRoute {
-  Root = '/',
-  Login = '/login',
-  Offer = '/offer/:id',
-  NoFound = '*',
-}
-
 export const CITIES = [
   {
     title: 'Paris',
@@ -47,10 +40,12 @@ export const SORTING_LIST = [
 ];
 
 export enum APIRoute {
+  Root = '/',
   Offers = '/hotels',
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
+  NoFound = '*',
 }
 
 export enum AuthorizationStatus {

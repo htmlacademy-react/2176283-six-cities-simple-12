@@ -4,6 +4,7 @@ import { CITIES, SORTING_LIST, AuthorizationStatus } from '../const';
 import {
   changeCity,
   addOffers,
+  addOfferSelected,
   toggleSortingOpen,
   changeSorting,
   loadOffers,
@@ -16,11 +17,11 @@ import {
 } from './action';
 
 import { InitialState } from '../types/inicial-state';
-//import { offers } from '../mocks/offers';
 
 const initialState: InitialState = {
   city: CITIES[0],
   offers:[],
+  offerSelected: null,
   offersNearby: [],
   comments: [],
   isOpenSort: false,
@@ -35,6 +36,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(addOfferSelected, (state, action) => {
+      state.offerSelected = action.payload;
     })
     .addCase(addComments, (state, action) => {
       state.comments = action.payload;
