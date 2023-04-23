@@ -7,8 +7,9 @@ import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
-import { Comments } from '../types/comments';
+import { /*Comment,*/ Comments } from '../types/comments';
 import { addComments } from './action';
+import { UserComment } from '../types/user-comment';
 
 export const clearErrorAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -102,6 +103,18 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(token);
     dispatch(setEmail(email));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  },
+);
+
+export const addNewComment = createAsyncThunk<void, UserComment, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/addComment',
+  async ({comment, id, rating}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Comments>(`${APIRoute.Comments}/${id}`, {comment, rating,});
+    dispatch(addComments(data));
   },
 );
 

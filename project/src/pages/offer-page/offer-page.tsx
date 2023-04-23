@@ -160,7 +160,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
 
                 <ReviewsList reviews={comments} starsRating={starsRating}/>
 
-                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmissionForm/> : ''}
+                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmissionForm currentOfferId={userId}/> : ''}
 
               </section>
             </div>

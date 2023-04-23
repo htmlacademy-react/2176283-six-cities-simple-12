@@ -3,7 +3,7 @@ import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
 import { AuthorizationStatus } from '../const';
-import { Comments } from '../types/comments';
+import { /*Comment,*/ Comments } from '../types/comments';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
   payload: city,
@@ -20,6 +20,8 @@ export const addOfferSelected = createAction('offers/addofferSelected', (offer: 
 export const addComments = createAction('comments/addComments', (comments: Comments) => ({
   payload: comments,
 }));
+
+export const addComment = createAction<Comments>('data/addComment');
 
 export const addOffersNearby = createAction('offers/addoffersNearby', (offers: Offer[]) => ({
   payload: offers,
