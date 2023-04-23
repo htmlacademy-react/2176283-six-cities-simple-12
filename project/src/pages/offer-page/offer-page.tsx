@@ -16,6 +16,7 @@ import { AuthorizationStatus } from '../../const';
 import { IMAGE_QUANTITY } from '../../const';
 import { store } from '../../store';
 import { fetchCommentsAction } from '../../store/api-actions';
+import { useEffect} from 'react';
 
 type OfferPageProps = {
   nearbyOfferCount: number;
@@ -28,7 +29,9 @@ function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferP
   const { id } = useParams();
   const userId = Number(id);
 
-  store.dispatch(fetchCommentsAction(userId));
+  useEffect(() => {
+    store.dispatch(fetchCommentsAction(userId));
+  }, [userId]);
 
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
