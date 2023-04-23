@@ -19,12 +19,11 @@ import { fetchCommentsAction, fetchOffersNearbyAction } from '../../store/api-ac
 import { useEffect} from 'react';
 
 type OfferPageProps = {
-  nearbyOfferCount: number;
   authorizationStatus: AuthorizationStatus;
   currentEmail: string | null;
 }
 
-function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
+function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
 
   const { id } = useParams();
   const userId = Number(id);

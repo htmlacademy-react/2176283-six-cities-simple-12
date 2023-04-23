@@ -7,9 +7,6 @@ import { /*fetchCommentsAction,*/ fetchOffersAction } from './store/api-actions'
 import ErrorMessage from './components/error-message/error-message';
 import { checkAuthAction } from './store/api-actions';
 
-const Setting = {
-  NearbyOfferCount: 3,
-} as const;
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
@@ -23,9 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <ErrorMessage/>
-      <App
-        nearbyOfferCount = {Setting.NearbyOfferCount}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

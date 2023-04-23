@@ -7,11 +7,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import ErrorPage from '../../pages/error-page/error-page';
 import { useAppSelector } from '../../hooks';
 
-type AppWelcomePageProps = {
-  nearbyOfferCount: number;
-}
-
-function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) =>
     state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) =>
@@ -32,7 +28,7 @@ function App({nearbyOfferCount}: AppWelcomePageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element = {<OfferPage nearbyOfferCount={nearbyOfferCount} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
+            element = {<OfferPage authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
           />
           <Route
             path={AppRoute.NoFound}
