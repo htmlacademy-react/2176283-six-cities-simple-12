@@ -3,12 +3,12 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import useMap from '../../hooks/use-map/use-map';
 import { City } from '../../types/city';
-import { Offers } from '../../types/offer';
+import { Offer, Offers } from '../../types/offer';
 
 type MapProps = {
   city: City;
   offers: Offers;
-  selectedOffer: object;
+  selectedOffer: Offer;
 }
 
 function Map({city, offers, selectedOffer}: MapProps): JSX.Element {

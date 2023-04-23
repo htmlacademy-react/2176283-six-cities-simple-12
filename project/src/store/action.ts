@@ -17,6 +17,10 @@ export const addComments = createAction('comments/addComments', (comments: Comme
   payload: comments,
 }));
 
+export const addOffersNearby = createAction('offers/addoffersNearby', (offers: Offer[]) => ({
+  payload: offers,
+}));
+
 export const toggleSortingOpen = createAction('offers/openSorting');
 
 export const changeSorting = createAction('offers/changeSorting', (sorting: Sort) => ({

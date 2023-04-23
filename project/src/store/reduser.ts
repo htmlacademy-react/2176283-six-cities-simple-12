@@ -7,6 +7,7 @@ import {
   toggleSortingOpen,
   changeSorting,
   loadOffers,
+  addOffersNearby,
   setOffersDataLoadingStatus,
   requireAuthorization,
   setError,
@@ -20,6 +21,7 @@ import { InitialState } from '../types/inicial-state';
 const initialState: InitialState = {
   city: CITIES[0],
   offers:[],
+  offersNearby: [],
   comments: [],
   isOpenSort: false,
   sorting: SORTING_LIST[0],
@@ -49,6 +51,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(addOffersNearby, (state, action) => {
+      state.offersNearby = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

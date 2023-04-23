@@ -15,7 +15,7 @@ import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
 import { IMAGE_QUANTITY } from '../../const';
 import { store } from '../../store';
-import { fetchCommentsAction } from '../../store/api-actions';
+import { fetchCommentsAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect} from 'react';
 
 type OfferPageProps = {
@@ -31,9 +31,11 @@ function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferP
 
   useEffect(() => {
     store.dispatch(fetchCommentsAction(userId));
+    store.dispatch(fetchOffersNearbyAction(userId));
   }, [userId]);
 
   const offers = useAppSelector((state) => state.offers);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
   const currentCity = useAppSelector((state) => state.city);
   const comments = useAppSelector((state) => state.comments);
   const currentOffer = offers.find((offer) => offer.id === userId);
@@ -167,7 +169,7 @@ function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferP
           </div>
           <section className="property__map map">
 
-            <Map city = {currentCity} offers={offers} selectedOffer={currentOffer}/>
+            <Map city = {currentCity} offers={offersNearby} selectedOffer={currentOffer}/>
 
           </section>
         </section>
@@ -176,7 +178,7 @@ function OfferPage({nearbyOfferCount, authorizationStatus, currentEmail}: OfferP
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              <OffersList offers={offers.slice(0, nearbyOfferCount)} />
+              <OffersList offers={offersNearby} />
 
             </div>
           </section>

@@ -7,6 +7,7 @@ import { Comments } from './comments';
 export type InitialState = {
   city: City;
   offers: Offer[];
+  offersNearby: Offer[];
   comments: Comments;
   isOpenSort: boolean;
   sorting: Sort;
