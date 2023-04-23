@@ -11,7 +11,7 @@ import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
-import { APIRoute, AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
+import { AppRoute, AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
 import { store } from '../../store';
 import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
@@ -39,7 +39,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
   const currentOffer = offers.find((offer) => offer.id === userId);
 
   if(!currentOffer) {
-    return <Navigate to={APIRoute.NoFound}/>;
+    return <Navigate to={AppRoute.NoFound}/>;
   }
 
   const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
