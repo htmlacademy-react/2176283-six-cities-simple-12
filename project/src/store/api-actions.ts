@@ -7,7 +7,7 @@ import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
-import { /*Comment,*/ Comments } from '../types/comments';
+import { Comments } from '../types/comments';
 import { addComments } from './action';
 import { UserComment } from '../types/user-comment';
 

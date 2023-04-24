@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
-import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
+import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
 import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
 import { starsRating } from '../../hooks/stars-rating/stars-rating';
@@ -9,10 +9,9 @@ import { StatusPro } from '../../components/status-pro/status-pro';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AppRoute, AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
-import { store } from '../../store';
 import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 
@@ -23,14 +22,16 @@ type OfferPageProps = {
 
 function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
 
+  const dispatch = useAppDispatch();
+
   const { id } = useParams();
   const userId = Number(id);
 
   useEffect(() => {
-    store.dispatch(fetchCommentsAction(userId));
-    store.dispatch(fetchOffersNearbyAction(userId));
-    store.dispatch(fetchOfferSelectedAction(userId));
-  }, [userId]);
+    dispatch(fetchCommentsAction(userId));
+    dispatch(fetchOffersNearbyAction(userId));
+    dispatch(fetchOfferSelectedAction(userId));
+  }, [dispatch, userId]);
 
   const offers = useAppSelector((state) => state.offers);
   const offersNearby = useAppSelector((state) => state.offersNearby);
@@ -160,7 +161,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
 
                 <ReviewsList reviews={comments} starsRating={starsRating}/>
 
-                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmissionForm currentOfferId={userId}/> : ''}
+                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={userId}/> : ''}
 
               </section>
             </div>

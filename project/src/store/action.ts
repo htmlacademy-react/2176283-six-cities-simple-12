@@ -3,7 +3,7 @@ import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
 import { AuthorizationStatus } from '../const';
-import { /*Comment,*/ Comments } from '../types/comments';
+import { Comments } from '../types/comments';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
   payload: city,

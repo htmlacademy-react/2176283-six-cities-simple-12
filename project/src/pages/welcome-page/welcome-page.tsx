@@ -4,13 +4,14 @@ import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity, addOffers } from '../../store/action';
+import { changeCity } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { sortingOffers } from '../../utils/sorting-offers';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
@@ -21,17 +22,16 @@ type WelcomePageProps = {
 function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
+
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
-
-  useEffect(() => {
-    dispatch(addOffers(
-      offers
-    ));
-  }, [dispatch, offers]);
 
   const onCityClick = (city: City) => {dispatch(changeCity(city));};
 

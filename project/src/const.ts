@@ -62,3 +62,8 @@ export enum AuthorizationStatus {
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const IMAGE_QUANTITY = 6;
+
+export const REVIEW_SYMBOL_QUANTITY = {
+  min: 50,
+  max: 300,
+};
