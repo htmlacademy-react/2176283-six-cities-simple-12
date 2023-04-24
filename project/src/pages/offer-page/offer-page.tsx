@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
 import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
@@ -11,9 +11,10 @@ import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import HeaderNav from '../../components/header-nav/header-nav';
-import { AppRoute, AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
+import { AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
 import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import LoadingPage from '../loading-page/loading-page';
 
 type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -33,14 +34,13 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
     dispatch(fetchOfferSelectedAction(userId));
   }, [dispatch, userId]);
 
-  const offers = useAppSelector((state) => state.offers);
+  const currentOffer = useAppSelector((state) => state.offerSelected);
   const offersNearby = useAppSelector((state) => state.offersNearby);
   const currentCity = useAppSelector((state) => state.city);
   const comments = useAppSelector((state) => state.comments);
-  const currentOffer = offers.find((offer) => offer.id === userId);
 
   if(!currentOffer) {
-    return <Navigate to={AppRoute.NoFound}/>;
+    return <LoadingPage/>;
   }
 
   const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
