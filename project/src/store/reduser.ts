@@ -11,7 +11,6 @@ import {
   addOffersNearby,
   setOffersDataLoadingStatus,
   requireAuthorization,
-  setError,
   setEmail,
   addComments
 } from './action';
@@ -28,7 +27,6 @@ const initialState: InitialState = {
   sorting: SORTING_LIST[0],
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  error: null,
   email: null,
 };
 
@@ -64,9 +62,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(setEmail, (state, action) => {
       state.email = action.payload;
