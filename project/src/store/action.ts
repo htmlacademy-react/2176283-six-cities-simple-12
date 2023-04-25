@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
-import { AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { Comments } from '../types/comments';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
@@ -45,3 +45,5 @@ export const setCommentDataLoadingStatus = createAction<boolean>
 ('data/setCommentDataLoadingStatus');
 
 export const setEmail = createAction<string | null>('page/setEmail');
+
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');

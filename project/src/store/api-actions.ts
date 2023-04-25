@@ -2,13 +2,13 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { loadOffers, setOffersDataLoadingStatus, requireAuthorization, setEmail, addOffersNearby, addOfferSelected, setCommentDataLoadingStatus } from './action';
 import { Offer, Offers } from '../types/offer';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
 import { Comments } from '../types/comments';
-import { addComments } from './action';
+import { addComments, redirectToRoute } from './action';
 import { UserComment } from '../types/user-comment';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -89,6 +89,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(token);
     dispatch(setEmail(email));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Root));
   },
 );
 
