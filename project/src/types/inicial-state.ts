@@ -13,6 +13,7 @@ export type InitialState = {
   isOpenSort: boolean;
   sorting: Sort;
   isOffersDataLoading: boolean;
+  isCommentDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   email: string | null;
 };

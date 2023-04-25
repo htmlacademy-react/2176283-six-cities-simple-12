@@ -41,4 +41,7 @@ export const requireAuthorization = createAction<AuthorizationStatus>
 export const setOffersDataLoadingStatus = createAction<boolean>
 ('data/setOffersDataLoadingStatus');
 
+export const setCommentDataLoadingStatus = createAction<boolean>
+('data/setCommentDataLoadingStatus');
+
 export const setEmail = createAction<string | null>('page/setEmail');

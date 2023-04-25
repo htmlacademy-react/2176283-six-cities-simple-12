@@ -12,7 +12,8 @@ import {
   setOffersDataLoadingStatus,
   requireAuthorization,
   setEmail,
-  addComments
+  addComments,
+  setCommentDataLoadingStatus
 } from './action';
 
 import { InitialState } from '../types/inicial-state';
@@ -26,6 +27,7 @@ const initialState: InitialState = {
   isOpenSort: false,
   sorting: SORTING_LIST[0],
   isOffersDataLoading: false,
+  isCommentDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   email: null,
 };
@@ -62,6 +64,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setCommentDataLoadingStatus, (state, action) => {
+      state.isCommentDataLoading = action.payload;
     })
     .addCase(setEmail, (state, action) => {
       state.email = action.payload;
