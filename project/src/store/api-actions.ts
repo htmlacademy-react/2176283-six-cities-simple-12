@@ -1,26 +1,15 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { loadOffers, setOffersDataLoadingStatus, requireAuthorization, setError, setEmail } from './action';
-import { Offers } from '../types/offer';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { loadOffers, setOffersDataLoadingStatus, requireAuthorization, setEmail, addOffersNearby, addOfferSelected, setCommentDataLoadingStatus } from './action';
+import { Offer, Offers } from '../types/offer';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
-
-export const clearErrorAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'message/clearError',
-  (_arg, {dispatch}) => {
-    setTimeout(
-      () => dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
+import { Comments } from '../types/comments';
+import { addComments, redirectToRoute } from './action';
+import { UserComment } from '../types/user-comment';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -36,6 +25,42 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchOfferSelectedAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOfferSelected',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offer>(APIRoute.Offers.concat(`/${id}`));
+    dispatch(addOfferSelected(data));
+  },
+);
+
+export const fetchOffersNearbyAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffersNearby',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(APIRoute.Offers.concat(`/${id}/nearby`));
+    dispatch(addOffersNearby(data));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchComments',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comments>(APIRoute.Comments.concat(`/${id}`));
+    dispatch(addComments(data));
+  },
+);
+
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -44,9 +69,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoute.Login);
+      const {data} = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(setEmail(''));
+      dispatch(setEmail(data.email));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -64,6 +89,21 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(token);
     dispatch(setEmail(email));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Root));
+  },
+);
+
+export const addNewComment = createAsyncThunk<void, UserComment, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/addComment',
+  async ({comment, id, rating}, {dispatch, extra: api}) => {
+    dispatch(setCommentDataLoadingStatus(true));
+    const {data} = await api.post<Comments>(`${APIRoute.Comments}/${id}`, {comment, rating,});
+    dispatch(setCommentDataLoadingStatus(false));
+    dispatch(addComments(data));
   },
 );
 

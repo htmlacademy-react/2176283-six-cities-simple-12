@@ -1,7 +1,7 @@
 export enum AppRoute {
   Root = '/',
   Login = '/login',
-  Offer = '/offer/:id',
+  Offer = '/offer',
   NoFound = '*',
 }
 
@@ -48,6 +48,7 @@ export const SORTING_LIST = [
 
 export enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
@@ -58,4 +59,9 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const IMAGE_QUANTITY = 6;
+
+export const REVIEW_SYMBOL_QUANTITY = {
+  min: 50,
+  max: 300,
+};

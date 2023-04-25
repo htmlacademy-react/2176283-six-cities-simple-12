@@ -2,13 +2,28 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
-import { AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { Comments } from '../types/comments';
 
 export const changeCity = createAction('offers/clickCity', (city: City) =>({
   payload: city,
 }));
 
 export const addOffers = createAction('offers/addOffers', (offers: Offer[]) => ({
+  payload: offers,
+}));
+
+export const addOfferSelected = createAction('offers/addofferSelected', (offer: Offer) => ({
+  payload: offer,
+}));
+
+export const addComments = createAction('comments/addComments', (comments: Comments) => ({
+  payload: comments,
+}));
+
+export const addComment = createAction<Comments>('data/addComment');
+
+export const addOffersNearby = createAction('offers/addoffersNearby', (offers: Offer[]) => ({
   payload: offers,
 }));
 
@@ -23,9 +38,12 @@ export const loadOffers = createAction<Offers>('data/loadOffers');
 export const requireAuthorization = createAction<AuthorizationStatus>
 ('user/requireAuthorization');
 
-export const setError = createAction<string | null>('offers/setError');
-
 export const setOffersDataLoadingStatus = createAction<boolean>
 ('data/setOffersDataLoadingStatus');
 
+export const setCommentDataLoadingStatus = createAction<boolean>
+('data/setCommentDataLoadingStatus');
+
 export const setEmail = createAction<string | null>('page/setEmail');
+
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');

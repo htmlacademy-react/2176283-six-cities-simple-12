@@ -1,37 +1,49 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
-import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
+import { useParams } from 'react-router-dom';
+import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
 import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
 import { starsRating } from '../../hooks/stars-rating/stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
-import { AppRoute } from '../../const';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../offers-list/offers-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import HeaderNav from '../../components/header-nav/header-nav';
+import { AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
+import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadingPage from '../loading-page/loading-page';
 
-
-type OfferUserLoggedPageProps = {
-  nearbyOfferCount: number;
+type OfferPageProps = {
+  authorizationStatus: AuthorizationStatus;
+  currentEmail: string | null;
 }
 
-function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.Element {
+function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
   const userId = Number(id);
 
-  const currentOffer = offers.find((offer) => offer.id === userId);
+  useEffect(() => {
+    dispatch(fetchCommentsAction(userId));
+    dispatch(fetchOffersNearbyAction(userId));
+    dispatch(fetchOfferSelectedAction(userId));
+  }, [dispatch, userId]);
+
+  const currentOffer = useAppSelector((state) => state.offerSelected);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+  const currentCity = useAppSelector((state) => state.city);
+  const comments = useAppSelector((state) => state.comments);
 
   if(!currentOffer) {
-    return <Navigate to={AppRoute.NoFound}/>;
+    return <LoadingPage/>;
   }
 
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host, reviews} = currentOffer;
+  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
 
   return (
     <div className="page">
@@ -59,23 +71,13 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
+
               <Logo/>
+
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#todo">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+
+            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+
           </div>
         </div>
       </header>
@@ -89,7 +91,7 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
                 <div key={`${image}`} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="studio"/>
                 </div>
-              ))}
+              )).slice(0, IMAGE_QUANTITY)}
 
             </div>
           </div>
@@ -154,19 +156,19 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot;
-                  <span className="reviews__amount">{reviews.length}</span>
+                  <span className="reviews__amount">{comments.length}</span>
                 </h2>
 
-                <ReviewsList reviews={reviews} starsRating={starsRating}/>
+                <ReviewsList reviews={comments} starsRating={starsRating}/>
 
-                <CommentSubmissionForm/>
+                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={userId}/> : ''}
 
               </section>
             </div>
           </div>
           <section className="property__map map">
 
-            <Map city = {currentCity} offers={offers} selectedOffer={currentOffer}/>
+            <Map city = {currentCity} offers={offersNearby} selectedOffer={currentOffer}/>
 
           </section>
         </section>
@@ -175,7 +177,7 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              <OffersList offers={offers.slice(0, nearbyOfferCount)} />
+              <OffersList offers={offersNearby} />
 
             </div>
           </section>
@@ -185,4 +187,4 @@ function OfferUserLoggedPage({nearbyOfferCount}: OfferUserLoggedPageProps): JSX.
   );
 }
 
-export default OfferUserLoggedPage;
+export default OfferPage;
