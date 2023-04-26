@@ -12,6 +12,7 @@ import LoadingPage from '../../pages/loading-page/loading-page';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
 import { fetchOffersAction } from '../../store/api-actions';
+import WelcomeEmptyPage from '../../components/welcome-empty-page/welcome-empty-page';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
@@ -44,19 +45,6 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
     }
     else {
       setSelectedOffer('');
-    }
-  };
-
-  const renderOffers = () => {
-    if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
-      return (
-        <LoadingPage/>
-      );
-    }
-    else {
-      return (
-        <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>
-      );
     }
   };
 
@@ -106,26 +94,31 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
 
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
 
-              <SortingOptions currenSorting={currenSorting}/>
+        {(currentOffers.length) ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
 
-              {renderOffers()}
+                <SortingOptions currenSorting={currenSorting}/>
 
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-
-                <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
+                {(authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) ?
+                  <LoadingPage/> :
+                  <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>}
 
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+
+                  <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
+
+                </section>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> : <WelcomeEmptyPage city = {currentCity.title}/>}
+
       </main>
     </body>
   );

@@ -36,11 +36,16 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
 
   const currentOffer = useAppSelector((state) => state.offerSelected);
   const offersNearby = useAppSelector((state) => state.offersNearby);
+  const offersMap = [...offersNearby];
   const currentCity = useAppSelector((state) => state.city);
   const comments = useAppSelector((state) => state.comments);
 
   if(!currentOffer) {
     return <LoadingPage/>;
+  }
+
+  if (currentOffer) {
+    offersMap.push(currentOffer);
   }
 
   const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
@@ -168,7 +173,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
           </div>
           <section className="property__map map">
 
-            <Map city = {currentCity} offers={offersNearby} selectedOffer={currentOffer}/>
+            <Map city = {currentCity} offers={offersMap} selectedOffer={currentOffer}/>
 
           </section>
         </section>
