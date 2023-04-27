@@ -48,7 +48,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
     offersMap.push(currentOffer);
   }
 
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
+  const {images, title, description, isPremium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
 
   return (
     <div className="page">
@@ -102,7 +102,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PremiumSticker premium={premium}/>
+              <PremiumSticker isPremium={isPremium}/>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}

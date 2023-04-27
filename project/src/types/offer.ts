@@ -20,7 +20,7 @@ export type Offer = {
   previewImage: string;
   title: string; //Заголовок. Краткое описание предложения, например: «Beautiful & luxurious studio at great location».
   description: string; //Подробное описание.
-  premium: boolean;
+  isPremium: boolean;
   type: string; //Тип жилья. Одно из значений: apartment (Apartment), room (Private Room), house (House), hotel (Hotel).
   rating: number; //Рейтинг. Оценка предложения отображается в виде закрашенных звезд и среднего балла (например, 4.8). Максимальное количество звёзд — 5.
   bedrooms: number; //Количество спален. Например, 3 Bedrooms.

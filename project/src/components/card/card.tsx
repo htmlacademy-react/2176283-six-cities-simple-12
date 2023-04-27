@@ -13,11 +13,11 @@ type OfferCardProps = {
 
 function OfferCard({offer, onMouseOver, onMouseOut}: OfferCardProps): JSX.Element {
 
-  const {id, price, type, rating, title, previewImage, premium} = offer;
+  const {id, price, type, rating, title, previewImage, isPremium} = offer;
 
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-      <StickerProCard premium={premium}/>
+      <StickerProCard isPremium={isPremium}/>
       <div className="cities__image-wrapper place-card__image-wrapper" >
         <Link to={AppRoute.Offer.concat(`/${id}`)}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>

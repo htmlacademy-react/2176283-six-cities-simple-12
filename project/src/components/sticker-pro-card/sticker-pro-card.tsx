@@ -1,5 +1,5 @@
-export const StickerProCard = ({premium}: {premium: boolean}) => {
-  if (premium === true) {
+export const StickerProCard = ({isPremium}: {isPremium: boolean}) => {
+  if (isPremium === true) {
     return (
       <div className="place-card__mark">
         <span>Premium</span>
