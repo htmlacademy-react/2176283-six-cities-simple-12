@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { starsRating } from '../../hooks/stars-rating/stars-rating';
+import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
 import { StickerProCard } from '../sticker-pro-card/sticker-pro-card';
 import { MouseEventHandler } from 'react';
 import { AppRoute } from '../../const';
@@ -32,7 +32,7 @@ function OfferCard({offer, onMouseOver, onMouseOut}: OfferCardProps): JSX.Elemen
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: starsRating(rating)}}></span>
+            <span style={{width: transformStarsRating(rating)}}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>

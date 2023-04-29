@@ -20,7 +20,7 @@ function LoginPage(): JSX.Element {
   const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
   const hasNumber = (password:string) => /[0-9]/.test(password);
 
-  const isValidPassword = (password: string) => {
+  const validatePassword = (password: string) => {
     if (!hasLetter(password)) {
       return false;
     }
@@ -38,7 +38,7 @@ function LoginPage(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null && isValidPassword(passwordRef.current.value) === true) {
+    if (loginRef.current !== null && passwordRef.current !== null && validatePassword(passwordRef.current.value) === true) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { sortingOffers } from '../../utils/sorting-offers';
+import { sortOffers } from '../../utils/sort-offers';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
@@ -106,7 +106,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
 
                 {(authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) ?
                   <LoadingPage/> :
-                  <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>}
+                  <OffersList offers={sortOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>}
 
               </section>
               <div className="cities__right-section">

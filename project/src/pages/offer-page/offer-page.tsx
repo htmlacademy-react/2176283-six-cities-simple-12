@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
 import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
-import { starsRating } from '../../hooks/stars-rating/stars-rating';
+import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -110,7 +110,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: starsRating(rating)}}></span>
+                  <span style={{width: transformStarsRating(rating)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -164,7 +164,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
 
-                <ReviewsList reviews={comments} starsRating={starsRating}/>
+                <ReviewsList reviews={comments} starsRating={transformStarsRating}/>
 
                 {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={userId}/> : ''}
 
