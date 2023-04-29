@@ -5,7 +5,7 @@ export enum AppRoute {
   NoFound = '*',
 }
 
-export const CITIES = [
+export const cities = [
   {
     title: 'Paris',
     latitude: 48.864716,

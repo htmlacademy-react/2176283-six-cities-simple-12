@@ -1,4 +1,4 @@
-import { CITIES } from '../../const';
+import { cities } from '../../const';
 import { City } from '../../types/city';
 
 type LocationsListProps = {
@@ -9,7 +9,7 @@ type LocationsListProps = {
 function LocationsList({locations, onCityClick}: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
-      {CITIES.map((CITY, index) => (
+      {cities.map((CITY, index) => (
         <li key={`${index + 1}-${CITY.title}`} className="locations__item">
           <a className={`locations__item-link tabs__item ${locations.title === CITY.title ? 'tabs__item--active' : ''}`}
             href="#todo"

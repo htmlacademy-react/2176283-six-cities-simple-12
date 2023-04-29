@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CITIES, SORTING_LIST, AuthorizationStatus } from '../const';
+import { cities, SORTING_LIST, AuthorizationStatus } from '../const';
 
 import {
   changeCity,
@@ -19,7 +19,7 @@ import {
 import { InitialState } from '../types/inicial-state';
 
 const initialState: InitialState = {
-  city: CITIES[0],
+  city: cities[0],
   offers:[],
   offerSelected: null,
   offersNearby: [],
