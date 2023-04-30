@@ -65,3 +65,27 @@ export const REVIEW_SYMBOL_QUANTITY = {
   min: 50,
   max: 300,
 };
+
+export const titles = [
+  {
+    title:'perfect',
+    id: 5
+  },
+  {
+    title:'good',
+    id: 4
+  },
+  {
+    title:'not bad',
+    id: 3
+  },
+  {
+    title:'badly',
+    id: 2
+  },
+  {
+    title:'terribly',
+    id: 1
+  }
+];
+
