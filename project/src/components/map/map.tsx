@@ -8,10 +8,11 @@ import { Offers } from '../../types/offer';
 type MapProps = {
   city: City;
   offers: Offers;
+  className: string;
   selectedOffer: object;
 }
 
-function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
+function Map({city, offers, className, selectedOffer}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -30,8 +31,8 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       map.flyTo(
-        [city.latitude, city.longitude],
-        city.zoom,
+        [city.location.latitude, city.location.longitude],
+        city.location.zoom,
       );
     }
   }, [map, city]);
@@ -55,12 +56,11 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
   }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
   return (
-    <div
+    <section className={`${className} map`}
       style={{height: '600px'}}
       ref={mapRef}
     >
-    </div>
-
+    </section>
   );
 }
 

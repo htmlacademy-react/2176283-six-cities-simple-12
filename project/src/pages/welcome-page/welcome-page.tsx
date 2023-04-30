@@ -30,7 +30,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
 
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
-  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
+  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.name));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
 
@@ -100,24 +100,22 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
+                <b className="places__found">{currentOffers.length} places to stay in {currentCity.name}</b>
 
                 <SortingOptions currenSorting={currenSorting}/>
 
                 {(authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) ?
                   <LoadingPage/> :
-                  <OffersList offers={sortOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>}
+                  <OffersList offers={sortOffers(currentOffers, currenSorting)} className={'cities__card'} classList={'cities__places-list places__list tabs__content'} onListOfferHover={handleListOfferHover}/>}
 
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
 
-                  <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
+                <Map city = {currentCity} offers={currentOffers} className={'cities__map'} selectedOffer={selectedOffer}/>
 
-                </section>
               </div>
             </div>
-          </div> : <WelcomeEmptyPage city = {currentCity.title}/>}
+          </div> : <WelcomeEmptyPage city = {currentCity.name}/>}
 
       </main>
     </body>

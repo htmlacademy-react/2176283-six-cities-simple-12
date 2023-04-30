@@ -10,15 +10,15 @@ function LocationsList({locations, onCityClick}: LocationsListProps): JSX.Elemen
   return (
     <ul className="locations__list tabs__list">
       {cities.map((CITY, index) => (
-        <li key={`${index + 1}-${CITY.title}`} className="locations__item">
-          <a className={`locations__item-link tabs__item ${locations.title === CITY.title ? 'tabs__item--active' : ''}`}
+        <li key={`${index + 1}-${CITY.name}`} className="locations__item">
+          <a className={`locations__item-link tabs__item ${locations.name === CITY.name ? 'tabs__item--active' : ''}`}
             href="#todo"
             onClick={(evt) => {
               evt.preventDefault();
               onCityClick(CITY);
             }}
           >
-            <span>{CITY.title}</span>
+            <span>{CITY.name}</span>
           </a>
         </li>
       ))}
