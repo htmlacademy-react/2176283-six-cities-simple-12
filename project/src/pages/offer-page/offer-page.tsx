@@ -15,13 +15,14 @@ import { AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
 import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
+import { UserData } from '../../types/user-data';
 
 type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
-  currentEmail: string | null;
+  currentUser: UserData | null;
 }
 
-function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
+function OfferPage({authorizationStatus, currentUser}: OfferPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -29,9 +30,17 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
   const userId = Number(id);
 
   useEffect(() => {
-    dispatch(fetchCommentsAction(userId));
-    dispatch(fetchOffersNearbyAction(userId));
-    dispatch(fetchOfferSelectedAction(userId));
+    let isNeedUpdate = true;
+
+    if(isNeedUpdate) {
+      if (!isNaN(userId)) {
+        dispatch(fetchCommentsAction(userId));
+        dispatch(fetchOffersNearbyAction(userId));
+        dispatch(fetchOfferSelectedAction(userId));
+      }}
+    return () => {
+      isNeedUpdate = false;
+    };
   }, [dispatch, userId]);
 
   const currentOffer = useAppSelector((state) => state.offerSelected);
@@ -80,7 +89,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
 
             </div>
 
-            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+            <HeaderNav authorizationStatus={authorizationStatus} currentUser={currentUser}/>
 
           </div>
         </div>
@@ -171,7 +180,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
             </div>
           </div>
 
-          <Map city = {currentOffer.city} offers={offersMap} className={'property__map'} selectedOffer={currentOffer}/>
+          <Map city={currentOffer.city} offers={offersMap} className={'property__map'} selectedOffer={currentOffer}/>
 
         </section>
         <div className="container">

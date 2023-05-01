@@ -3,6 +3,7 @@ import { Offer } from './offer';
 import { Sort } from './sorting';
 import { AuthorizationStatus } from '../const';
 import { Comments } from './comments';
+import { UserData } from './user-data';
 
 export type InitialState = {
   city: City;
@@ -15,5 +16,5 @@ export type InitialState = {
   isOffersDataLoading: boolean;
   isCommentDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
-  email: string | null;
+  user: UserData | null;
 };

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
@@ -12,11 +12,11 @@ function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
+    return (<Navigate to={AppRoute.Root}/>);
   }
+
   const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
   const hasNumber = (password:string) => /[0-9]/.test(password);
 

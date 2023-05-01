@@ -12,7 +12,7 @@ function App(): JSX.Element {
     state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) =>
     state.isOffersDataLoading);
-  const currentEmail = useAppSelector((state) => state.email);
+  const currentUser = useAppSelector((state) => state.user);
 
   return (
     <HelmetProvider>
@@ -20,7 +20,7 @@ function App(): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element = {<WelcomePage isOffersDataLoading = {isOffersDataLoading} authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
+            element = {<WelcomePage isOffersDataLoading = {isOffersDataLoading} authorizationStatus = {authorizationStatus} currentUser = {currentUser}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -28,7 +28,7 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Offer.concat('/:id')}
-            element = {<OfferPage authorizationStatus = {authorizationStatus} currentEmail = {currentEmail}/>}
+            element = {<OfferPage authorizationStatus = {authorizationStatus} currentUser = {currentUser}/>}
           />
           <Route
             path={AppRoute.NoFound}

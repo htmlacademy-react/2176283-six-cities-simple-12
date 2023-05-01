@@ -13,26 +13,36 @@ import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
 import { fetchOffersAction } from '../../store/api-actions';
 import WelcomeEmptyPage from '../../components/welcome-empty-page/welcome-empty-page';
+import { UserData } from '../../types/user-data';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
-  currentEmail: string | null;
+  currentUser: UserData | null;
 }
 
-function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: WelcomePageProps): JSX.Element {
+function WelcomePage({isOffersDataLoading, authorizationStatus, currentUser}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
-
-  const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
   const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.name));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
+
+  useEffect(() => {
+    let isNeedUpdate = true;
+
+    if (isNeedUpdate) {
+      if (offers.length === 0) {
+        dispatch(fetchOffersAction());
+      }
+    }
+    return () => {
+      isNeedUpdate = false;
+    };
+  }, [dispatch, offers]);
 
   const onCityClick = (city: City) => {dispatch(changeCity(city));};
 
@@ -79,7 +89,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
               </a>
             </div>
 
-            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+            <HeaderNav authorizationStatus={authorizationStatus} currentUser={currentUser}/>
 
           </div>
         </div>
