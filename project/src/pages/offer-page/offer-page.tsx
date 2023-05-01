@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
 import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
-import { starsRating } from '../../hooks/stars-rating/stars-rating';
+import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -15,13 +15,14 @@ import { AuthorizationStatus, IMAGE_QUANTITY } from '../../const';
 import { fetchCommentsAction, fetchOfferSelectedAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
+import { UserData } from '../../types/user-data';
 
 type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
-  currentEmail: string | null;
+  currentUser: UserData | null;
 }
 
-function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Element {
+function OfferPage({authorizationStatus, currentUser}: OfferPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -29,15 +30,22 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
   const userId = Number(id);
 
   useEffect(() => {
-    dispatch(fetchCommentsAction(userId));
-    dispatch(fetchOffersNearbyAction(userId));
-    dispatch(fetchOfferSelectedAction(userId));
+    let isNeedUpdate = true;
+
+    if(isNeedUpdate) {
+      if (!isNaN(userId)) {
+        dispatch(fetchCommentsAction(userId));
+        dispatch(fetchOffersNearbyAction(userId));
+        dispatch(fetchOfferSelectedAction(userId));
+      }}
+    return () => {
+      isNeedUpdate = false;
+    };
   }, [dispatch, userId]);
 
   const currentOffer = useAppSelector((state) => state.offerSelected);
   const offersNearby = useAppSelector((state) => state.offersNearby);
   const offersMap = [...offersNearby];
-  const currentCity = useAppSelector((state) => state.city);
   const comments = useAppSelector((state) => state.comments);
 
   if(!currentOffer) {
@@ -48,7 +56,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
     offersMap.push(currentOffer);
   }
 
-  const {images, title, description, premium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
+  const {images, title, description, isPremium, type, rating, bedrooms, maxAdults, price, goods, host} = currentOffer;
 
   return (
     <div className="page">
@@ -81,7 +89,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
 
             </div>
 
-            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+            <HeaderNav authorizationStatus={authorizationStatus} currentUser={currentUser}/>
 
           </div>
         </div>
@@ -102,7 +110,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PremiumSticker premium={premium}/>
+              <PremiumSticker isPremium={isPremium}/>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -110,7 +118,7 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: starsRating(rating)}}></span>
+                  <span style={{width: transformStarsRating(rating)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -164,25 +172,23 @@ function OfferPage({authorizationStatus, currentEmail}: OfferPageProps): JSX.Ele
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
 
-                <ReviewsList reviews={comments} starsRating={starsRating}/>
+                <ReviewsList reviews={comments} starsRating={transformStarsRating}/>
 
                 {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={userId}/> : ''}
 
               </section>
             </div>
           </div>
-          <section className="property__map map">
 
-            <Map city = {currentCity} offers={offersMap} selectedOffer={currentOffer}/>
+          <Map city={currentOffer.city} offers={offersMap} className={'property__map'} selectedOffer={currentOffer}/>
 
-          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              <OffersList offers={offersNearby} />
+              <OffersList offers={offersNearby} className={'near-places__card'} classList={'near-places__list places__list'} />
 
             </div>
           </section>

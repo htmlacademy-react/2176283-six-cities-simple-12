@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
@@ -12,15 +12,15 @@ function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
+    return (<Navigate to={AppRoute.Root}/>);
   }
+
   const hasLetter = (password:string) => /[A-ZА-Яa-zа-я]/.test(password);
   const hasNumber = (password:string) => /[0-9]/.test(password);
 
-  const isValidPassword = (password: string) => {
+  const validatePassword = (password: string) => {
     if (!hasLetter(password)) {
       return false;
     }
@@ -38,7 +38,7 @@ function LoginPage(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null && isValidPassword(passwordRef.current.value) === true) {
+    if (loginRef.current !== null && passwordRef.current !== null && validatePassword(passwordRef.current.value) === true) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,

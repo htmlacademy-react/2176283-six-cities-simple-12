@@ -1,7 +1,7 @@
 import { Offers } from '../types/offer';
 import { Sort } from '../types/sorting';
 
-export const sortingOffers = (offers: Offers, currenSorting: Sort) => {
+export const sortOffers = (offers: Offers, currenSorting: Sort) => {
 
   if (currenSorting.label === 'Price: low to high') {
     return offers.sort((a, b) => a.price - b.price);

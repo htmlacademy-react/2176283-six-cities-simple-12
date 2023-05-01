@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CITIES, SORTING_LIST, AuthorizationStatus } from '../const';
+import { cities, SORTING_LIST, AuthorizationStatus } from '../const';
 
 import {
   changeCity,
@@ -11,7 +11,7 @@ import {
   addOffersNearby,
   setOffersDataLoadingStatus,
   requireAuthorization,
-  setEmail,
+  setUser,
   addComments,
   setCommentDataLoadingStatus
 } from './action';
@@ -19,7 +19,7 @@ import {
 import { InitialState } from '../types/inicial-state';
 
 const initialState: InitialState = {
-  city: CITIES[0],
+  city: cities[0],
   offers:[],
   offerSelected: null,
   offersNearby: [],
@@ -29,7 +29,7 @@ const initialState: InitialState = {
   isOffersDataLoading: false,
   isCommentDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  email: null,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -68,8 +68,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setCommentDataLoadingStatus, (state, action) => {
       state.isCommentDataLoading = action.payload;
     })
-    .addCase(setEmail, (state, action) => {
-      state.email = action.payload;
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
 

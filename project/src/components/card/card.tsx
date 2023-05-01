@@ -1,25 +1,26 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { starsRating } from '../../hooks/stars-rating/stars-rating';
+import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
 import { StickerProCard } from '../sticker-pro-card/sticker-pro-card';
 import { MouseEventHandler } from 'react';
 import { AppRoute } from '../../const';
 
 type OfferCardProps = {
   offer: Offer;
-  onMouseOver: MouseEventHandler<HTMLElement>;
-  onMouseOut: MouseEventHandler<HTMLElement>;
+  className: string;
+  onMouseOver?: MouseEventHandler<HTMLElement>;
+  onMouseOut?: MouseEventHandler<HTMLElement>;
 }
 
-function OfferCard({offer, onMouseOver, onMouseOut}: OfferCardProps): JSX.Element {
+function OfferCard({offer, className, onMouseOver, onMouseOut}: OfferCardProps): JSX.Element {
 
-  const {id, price, type, rating, title, previewImage, premium} = offer;
+  const {id, price, type, rating, title, previewImage, isPremium} = offer;
 
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-      <StickerProCard premium={premium}/>
+    <article className={`${className} place-card`} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+      <StickerProCard isPremium={isPremium}/>
       <div className="cities__image-wrapper place-card__image-wrapper" >
-        <Link to={AppRoute.Offer.concat(`/${id}`)}>
+        <Link to={(className === 'cities__card') ? AppRoute.Offer.concat(`/${id}`) : ''}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
         </Link>
       </div>
@@ -32,12 +33,12 @@ function OfferCard({offer, onMouseOver, onMouseOut}: OfferCardProps): JSX.Elemen
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: starsRating(rating)}}></span>
+            <span style={{width: transformStarsRating(rating)}}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer.concat(`/${id}`)}>{title}</Link>
+          <Link to={(className === 'cities__card') ? AppRoute.Offer.concat(`/${id}`) : ''}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

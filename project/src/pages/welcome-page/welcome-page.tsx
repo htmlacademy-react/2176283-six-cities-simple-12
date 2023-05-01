@@ -7,32 +7,42 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
 import { City } from '../../types/city';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { sortingOffers } from '../../utils/sorting-offers';
+import { sortOffers } from '../../utils/sort-offers';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { AuthorizationStatus } from '../../const';
 import { fetchOffersAction } from '../../store/api-actions';
 import WelcomeEmptyPage from '../../components/welcome-empty-page/welcome-empty-page';
+import { UserData } from '../../types/user-data';
 
 type WelcomePageProps = {
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
-  currentEmail: string | null;
+  currentUser: UserData | null;
 }
 
-function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: WelcomePageProps): JSX.Element {
+function WelcomePage({isOffersDataLoading, authorizationStatus, currentUser}: WelcomePageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
-
-  const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
-  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.title));
+  const currentCity = useAppSelector((state) => state.city);
+  const currentOffers = useAppSelector(() => offers.filter((offer) => offer.city.name === currentCity.name));
   const [selectedOffer, setSelectedOffer] = useState({});
   const currenSorting = useAppSelector((state) => state.sorting);
+
+  useEffect(() => {
+    let isNeedUpdate = true;
+
+    if (isNeedUpdate) {
+      if (offers.length === 0) {
+        dispatch(fetchOffersAction());
+      }
+    }
+    return () => {
+      isNeedUpdate = false;
+    };
+  }, [dispatch, offers]);
 
   const onCityClick = (city: City) => {dispatch(changeCity(city));};
 
@@ -79,7 +89,7 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
               </a>
             </div>
 
-            <HeaderNav authorizationStatus={authorizationStatus} currentEmail={currentEmail}/>
+            <HeaderNav authorizationStatus={authorizationStatus} currentUser={currentUser}/>
 
           </div>
         </div>
@@ -100,24 +110,22 @@ function WelcomePage({isOffersDataLoading, authorizationStatus, currentEmail}: W
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{currentOffers.length} places to stay in {currentCity.title}</b>
+                <b className="places__found">{currentOffers.length} places to stay in {currentCity.name}</b>
 
                 <SortingOptions currenSorting={currenSorting}/>
 
                 {(authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) ?
                   <LoadingPage/> :
-                  <OffersList offers={sortingOffers(currentOffers, currenSorting)} onListOfferHover={handleListOfferHover}/>}
+                  <OffersList offers={sortOffers(currentOffers, currenSorting)} className={'cities__card'} classList={'cities__places-list places__list tabs__content'} onListOfferHover={handleListOfferHover}/>}
 
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
 
-                  <Map city = {currentCity} offers={currentOffers} selectedOffer={selectedOffer}/>
+                <Map city = {currentCity} offers={currentOffers} className={'cities__map'} selectedOffer={selectedOffer}/>
 
-                </section>
               </div>
             </div>
-          </div> : <WelcomeEmptyPage city = {currentCity.title}/>}
+          </div> : <WelcomeEmptyPage city = {currentCity.name}/>}
 
       </main>
     </body>
