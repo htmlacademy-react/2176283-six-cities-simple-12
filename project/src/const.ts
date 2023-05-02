@@ -100,4 +100,3 @@ export const titles = [
     id: 1
   }
 ];
-

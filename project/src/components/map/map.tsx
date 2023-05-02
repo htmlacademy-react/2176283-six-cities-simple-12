@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
+import leaflet, { Marker } from 'leaflet';
 import useMap from '../../hooks/use-map/use-map';
 import { City } from '../../types/city';
 import { Offers } from '../../types/offer';
@@ -10,9 +10,10 @@ type MapProps = {
   offers: Offers;
   className: string;
   selectedOffer: object;
+  currentOfferId?: number;
 }
 
-function Map({city, offers, className, selectedOffer}: MapProps): JSX.Element {
+function Map({city, offers, className, selectedOffer, currentOfferId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -39,21 +40,31 @@ function Map({city, offers, className, selectedOffer}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const markerGroup = leaflet.layerGroup().addTo(map);
+      markerGroup.clearLayers();
       offers.forEach((offer) => {
-        leaflet
-          .marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
-          }, {
-            icon: (offer === selectedOffer)
+        const marker = new Marker ({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,});
+        if (className === 'cities__map') {
+          marker.setIcon(
+            offer === selectedOffer
               ? currentCustomIcon
               : defaultCustomIcon,
-
-          })
-          .addTo(map);
+          ).addTo(markerGroup);
+        } else {
+          marker.setIcon(
+            currentOfferId === offer.id
+              ? currentCustomIcon
+              : defaultCustomIcon
+          ).addTo(markerGroup);
+        }
       });
+      return () => {
+        map.removeLayer(markerGroup);
+      };
     }
-  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [className, currentCustomIcon, currentOfferId, defaultCustomIcon, map, offers, selectedOffer]);
 
   return (
     <section className={`${className} map`}
