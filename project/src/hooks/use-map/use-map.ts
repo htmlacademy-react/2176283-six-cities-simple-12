@@ -5,7 +5,7 @@ import { City } from '../../types/city';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City,
+  city: City
 ) {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
