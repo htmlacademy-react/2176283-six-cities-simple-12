@@ -1,7 +1,6 @@
 import { Host } from './host';
 
-export type Comment =
-  {
+export type Comment = {
   comment: string;
   date: string;
   id: number;

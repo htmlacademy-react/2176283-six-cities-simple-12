@@ -22,8 +22,6 @@ export const addComments = createAction('comments/addComments', (comments: Comme
   payload: comments,
 }));
 
-export const addComment = createAction<Comments>('data/addComment');
-
 export const addOffersNearby = createAction('offers/addoffersNearby', (offers: Offer[]) => ({
   payload: offers,
 }));

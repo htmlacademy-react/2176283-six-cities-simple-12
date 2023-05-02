@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import CommentSubmitForm from '../../components/comment-submit-form/comment-submit-form';
 import Logo from '../../components/logo/logo';
-import { stickerPro } from '../../hooks/sticker-pro/sticker-pro';
-import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
+import { stickerPro } from '../../utils/sticker-pro';
+import { transformStarsRating } from '../../utils/transform-stars-rating';
 import { PremiumSticker } from '../../components/premium-sticker/premium-sticker';
 import { StatusPro } from '../../components/status-pro/status-pro';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -27,21 +27,21 @@ function OfferPage({authorizationStatus, currentUser}: OfferPageProps): JSX.Elem
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const userId = Number(id);
+  const offerId = Number(id);
 
   useEffect(() => {
     let isNeedUpdate = true;
 
     if(isNeedUpdate) {
-      if (!isNaN(userId)) {
-        dispatch(fetchCommentsAction(userId));
-        dispatch(fetchOffersNearbyAction(userId));
-        dispatch(fetchOfferSelectedAction(userId));
+      if (!isNaN(offerId)) {
+        dispatch(fetchOffersNearbyAction(offerId));
+        dispatch(fetchCommentsAction(offerId));
+        dispatch(fetchOfferSelectedAction(offerId));
       }}
     return () => {
       isNeedUpdate = false;
     };
-  }, [dispatch, userId]);
+  }, [dispatch, offerId]);
 
   const currentOffer = useAppSelector((state) => state.offerSelected);
   const offersNearby = useAppSelector((state) => state.offersNearby);
@@ -174,13 +174,13 @@ function OfferPage({authorizationStatus, currentUser}: OfferPageProps): JSX.Elem
 
                 <ReviewsList reviews={comments} starsRating={transformStarsRating}/>
 
-                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={userId}/> : ''}
+                {(authorizationStatus === AuthorizationStatus.Auth) ? <CommentSubmitForm currentOfferId={offerId}/> : ''}
 
               </section>
             </div>
           </div>
 
-          <Map city={currentOffer.city} offers={offersMap} className={'property__map'} selectedOffer={currentOffer}/>
+          <Map city={currentOffer.city} offers={offersMap} className={'property__map'} currentOfferId={offerId} selectedOffer={currentOffer}/>
 
         </section>
         <div className="container">

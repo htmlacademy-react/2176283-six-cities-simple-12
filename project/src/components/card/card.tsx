@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { transformStarsRating } from '../../hooks/stars-rating/transform-stars-rating';
+import { transformStarsRating } from '../../utils/transform-stars-rating';
 import { StickerProCard } from '../sticker-pro-card/sticker-pro-card';
 import { MouseEventHandler } from 'react';
 import { AppRoute } from '../../const';
